@@ -32,4 +32,8 @@ public class SavedMedicine {
         return medicineList;
     }
 
+    public Medicine getMedicine(int i){
+        return medicineList.get(i);
+    }
+
 }

@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("LOG", "onItemClick(" + i + ")");
-                Intent intent = new Intent(MainActivity.this, MedicineDetailsActivity.class); // TODO: CREATE CLASS
+                Intent intent = new Intent(MainActivity.this, MedicineDetailsActivity.class);
                 intent.putExtra(EXTRA, i);
                 startActivity(intent);
             }
