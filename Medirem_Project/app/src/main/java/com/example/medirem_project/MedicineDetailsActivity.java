@@ -5,6 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+/**
+ * Medicine Details Activity shows the description of the clicked medicine
+ * @author Eric Keränen
+ * @version 1.1 2/2019
+ */
 public class MedicineDetailsActivity extends AppCompatActivity {
 
     @Override
