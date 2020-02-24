@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     /*
+    // SWITCH THE ACTIVITY TO ADD A MEDICINE TO THE LIST
     public void addMedicine(View v){
         Intent intent = new Intent(MainActivity.this, AddMedicineActivity.class); // TODO: CREATE CLASS
         // TODO: TAKE DATE FROM CALENDAR
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
     */
+    // GET THE RESULT FROM "ADDMEDICINE" AND PUT 
     @Override
     protected  void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
