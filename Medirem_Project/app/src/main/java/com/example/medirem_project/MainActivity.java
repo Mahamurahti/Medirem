@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import static com.example.medirem_project.AddMedicineActivity.EXTRA_ADD;
+
 /**
  * MainActivity holds the calendar and the main functions of this app
  * @author Eric Keränen
@@ -18,7 +20,7 @@ import android.widget.ListView;
 public class MainActivity extends AppCompatActivity {
 
     // Git Version
-    public  static  final String EXTRA = "Value";
+    public  static  final String EXTRA_MAIN = "Main Activity Value";
 
     private ListView listOfMed;
 
@@ -43,27 +45,34 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("LOG", "onItemClick(" + i + ")");
                 Intent intent = new Intent(MainActivity.this, MedicineDetailsActivity.class);
-                intent.putExtra(EXTRA, i);
+                intent.putExtra(EXTRA_MAIN, i);
                 startActivity(intent);
             }
         });
     }
-    /*
+
     // SWITCH THE ACTIVITY TO ADD A MEDICINE TO THE LIST
     public void addMedicine(View v){
-        Intent intent = new Intent(MainActivity.this, AddMedicineActivity.class); // TODO: CREATE CLASS
+        Intent intent = new Intent(MainActivity.this, AddMedicineActivity.class);
         // TODO: TAKE DATE FROM CALENDAR
-        String date = ;
-        intent.putExtra(EXTRA, date);
+        String date = "24.2.2020";
+        intent.putExtra(EXTRA_MAIN, date);
         startActivityForResult(intent, 1);
     }
-    */
-    // GET THE RESULT FROM "ADDMEDICINE" AND PUT 
+
+    // GET THE RESULT FROM "ADDMEDICINE" AND PUT THE RESULT TO THAT DATE
     @Override
     protected  void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
-            // TODO: CREATE SECOND ACTIVITY
+            String medName = data.getStringExtra(EXTRA_ADD);
+            SavedMedicine.getInstance().saveMedicine(medName, "Implement desc here");
+
+            listOfMed.setAdapter(new ArrayAdapter<Medicine>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    SavedMedicine.getInstance().getMedicine()
+            ));
         }
     }
 

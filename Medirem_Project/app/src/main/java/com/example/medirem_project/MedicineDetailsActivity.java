@@ -18,7 +18,7 @@ public class MedicineDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_medicine_details);
 
         Bundle b = getIntent().getExtras();
-        int i = b.getInt(MainActivity.EXTRA, 0);
+        int i = b.getInt(MainActivity.EXTRA_MAIN, 1);
 
         ((TextView)findViewById(R.id.medicineName)).setText(SavedMedicine.getInstance().getMedicine(i).getName());
         ((TextView)findViewById(R.id.medicineDesc)).setText(SavedMedicine.getInstance().getMedicine(i).getDesc());

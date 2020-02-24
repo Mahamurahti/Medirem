@@ -33,8 +33,8 @@ public class SavedMedicine {
         medicineList.add(new Medicine("Morfiini", "Krapulatärinän parannuslääke"));
     }
 
-    public void saveMedicine(){
-        // TODO: MAKE A METHOD THAT SAVES MEDICINE TO THE LIST
+    public void saveMedicine(String name, String desc){
+        medicineList.add(new Medicine(name, desc));
     }
 
     public List<Medicine> getMedicine(){
