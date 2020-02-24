@@ -20,8 +20,16 @@ public class SavedMedicine {
 
     private SavedMedicine() {
         medicineList = new ArrayList<Medicine>();
-        medicineList.add(new Medicine("Panadol", "For headache, effects slower"));
-        medicineList.add(new Medicine("Burana", "For headache, effects faster"));
+        medicineList.add(new Medicine("Panadol", "Särkylääke, pitkäkestoinen"));
+        medicineList.add(new Medicine("Burana", "Särkylääke, lyhytkestoinen"));
+        medicineList.add(new Medicine("Linatil", "Korkeanverenpaineen hallinta"));
+        medicineList.add(new Medicine("Misoprolol", "Korkeanverenpaineen hallintaa ja turvotukseen"));
+        medicineList.add(new Medicine("Ibuprofeeni", "Kipu ja särkylääke"));
+        medicineList.add(new Medicine("Simvastatin", "Kolesterolilääke"));
+        medicineList.add(new Medicine("Tryptiili", "Migreeni esto lääke"));
+        medicineList.add(new Medicine("Aspirin", "Tulehdus ja päänsärky lääke"));
+        medicineList.add(new Medicine("Somac", "Närästyslääke"));
+        medicineList.add(new Medicine("Rennie", "Närästyslääke"));
     }
 
     public void saveMedicine(){
