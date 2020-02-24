@@ -30,6 +30,7 @@ public class SavedMedicine {
         medicineList.add(new Medicine("Aspirin", "Tulehdus ja päänsärky lääke"));
         medicineList.add(new Medicine("Somac", "Närästyslääke"));
         medicineList.add(new Medicine("Rennie", "Närästyslääke"));
+        medicineList.add(new Medicine("Morfiini", "Krapulatärinän parannuslääke"));
     }
 
     public void saveMedicine(){
