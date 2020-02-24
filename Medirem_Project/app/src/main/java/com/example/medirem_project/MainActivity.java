@@ -10,6 +10,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+/**
+ * MainActivity holds the calendar and the main functions of this app
+ * @author Eric Keränen
+ * @version 1.1 2/2019
+*/
 public class MainActivity extends AppCompatActivity {
 
     // Git Version

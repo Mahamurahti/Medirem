@@ -3,6 +3,11 @@ package com.example.medirem_project;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * SavedMedicine is the singleton that holds all the saved medicine
+ * @author Eric Keränen
+ * @version 1.1 2/2019
+ */
 public class SavedMedicine {
     private static final SavedMedicine ourInstance = new SavedMedicine();
 
