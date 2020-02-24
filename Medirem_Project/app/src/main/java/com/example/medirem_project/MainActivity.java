@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TROLRORLRLOLROROLLR
+    // Git Version
     public  static  final String EXTRA = "Value";
 
     private ListView listOfMed;
