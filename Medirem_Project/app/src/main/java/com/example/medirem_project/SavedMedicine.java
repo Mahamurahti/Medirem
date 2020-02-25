@@ -31,7 +31,7 @@ public class SavedMedicine {
         medicineList.add(new Medicine("Somac", "Närästyslääke"));
         medicineList.add(new Medicine("Rennie", "Närästyslääke"));
         medicineList.add(new Medicine("Morfiini", "Krapulatärinän parannuslääke"));
-        medicineList.add(new Medicine("medirest", "Melatoniini"));
+        medicineList.add(new Medicine("Medirest", "Melatoniini"));
     }
 
     public void saveMedicine(String name, String desc){
