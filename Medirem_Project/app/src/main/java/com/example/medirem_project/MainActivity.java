@@ -28,19 +28,17 @@ public class MainActivity extends AppCompatActivity {
     // TODO: GET CALENDAR TO WORK
     public  static  final String EXTRA_MAIN = "Main Activity Value";
 
-    private CalendarView cal;
-
     private ListView listOfMed;
     private String medicineNameSaved, medicineDescSaved;
     private String saveName, saveDesc;
-    CalendarView calendar;
+    private CalendarView calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        calendar = findViewById(R.id.calendarView);
 
+        calendar = findViewById(R.id.calendarView);
 
         //SETTING CALENDAR DAYCLICK
         calendar.setOnClickListener(new View.OnClickListener() {
@@ -50,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        cal = findViewById(R.id.calendarView);
         listOfMed = findViewById(R.id.listOfMedicine);
 
         // SETTING AN ADAPTER WITH A LIST VIEW TO SEE ALL MEDICINE
@@ -104,15 +101,23 @@ public class MainActivity extends AppCompatActivity {
     protected  void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
-            String medName = data.getStringExtra("MedName");
-            String medDesc = data.getStringExtra("MedDesc");
-            SavedMedicine.getInstance().saveMedicine(medName, medDesc);
+            if(resultCode == 1){
+                String medName = data.getStringExtra("MedName");
+                String medDesc = data.getStringExtra("MedDesc");
+                SavedMedicine.getInstance().saveMedicine(medName, medDesc);
 
-            listOfMed.setAdapter(new ArrayAdapter<Medicine>(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    SavedMedicine.getInstance().getMedicine()
-            ));
+                listOfMed.setAdapter(new ArrayAdapter<Medicine>(
+                        this,
+                        android.R.layout.simple_list_item_1,
+                        SavedMedicine.getInstance().getMedicine()
+                ));
+            }else if(resultCode == 0){
+                listOfMed.setAdapter(new ArrayAdapter<Medicine>(
+                        this,
+                        android.R.layout.simple_list_item_1,
+                        SavedMedicine.getInstance().getMedicine()
+                ));
+            }
         }
     }
 
