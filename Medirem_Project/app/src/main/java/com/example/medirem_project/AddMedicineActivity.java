@@ -27,6 +27,8 @@ public class AddMedicineActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.dateView)).setText(date);
     }
 
+    // UPON PRESSING THE ADD BUTTON, SENDS THE MEDICINE
+    // NAME AND DESC TO THE SAVED MEDICINE LIST
     public void addButton(View v){
         Intent intent = new Intent();
         Intent intent2 = new Intent();

@@ -10,10 +10,10 @@ public class Medicine {
     private String name, desc;
 
     // A NORMAL CLASS TO STORE MEDICINE DATA
+    // TODO: ADD TIME TO TAKE THE PILL
     public Medicine(String name, String desc){
         this.name = name;
         this.desc = desc;
-
     }
 
     @Override

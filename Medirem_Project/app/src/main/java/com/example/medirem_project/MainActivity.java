@@ -18,6 +18,7 @@ import android.widget.ListView;
 public class MainActivity extends AppCompatActivity {
 
     // Git Version
+    // TODO: GET CALENDAR TO WORK
     public  static  final String EXTRA_MAIN = "Main Activity Value";
 
     private ListView listOfMed;
@@ -58,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
-    // GET THE RESULT FROM "ADDMEDICINE" AND PUT THE RESULT TO THAT DATE
+    // GET THE RESULT FROM "ADDMEDICINE" AND PUT THE RESULT TO THE LIST
+    // TODO: SAVE THE MEDICINE TO A DATE
     @Override
     protected  void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
