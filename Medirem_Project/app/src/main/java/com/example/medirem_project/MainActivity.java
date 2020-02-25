@@ -2,13 +2,19 @@ package com.example.medirem_project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Debug;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * MainActivity holds the calendar and the main functions of this app
@@ -22,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     public  static  final String EXTRA_MAIN = "Main Activity Value";
 
     private ListView listOfMed;
+    private String medicineNameSaved, medicineDescSaved;
+    private String saveName, saveDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +56,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // CREATING PREFERENCES TO SAVE ADDED MEDICINE
+        SharedPreferences prefGet = getSharedPreferences("Preferences", Activity.MODE_PRIVATE);
+        medicineNameSaved = prefGet.getString("MedicineName", "Null");
+        medicineDescSaved = prefGet.getString("MedicineDesc", "Null");
+        if(medicineNameSaved.equals("Null") && medicineDescSaved.equals("Null")){
+            Log.d("LOG", "No savedPreferences");
+        }else{
+            SavedMedicine.getInstance().saveMedicine(medicineNameSaved, medicineDescSaved);
+            listOfMed.setAdapter(new ArrayAdapter<Medicine>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    SavedMedicine.getInstance().getMedicine()
+            ));
+        }
+
     }
 
     // SWITCH THE ACTIVITY TO ADD A MEDICINE TO THE LIST
@@ -55,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, AddMedicineActivity.class);
         // TODO: TAKE DATE FROM CALENDAR
         String date = "24.2.2020";
-        intent.putExtra(EXTRA_MAIN, date);
+        intent.putExtra("Date", date);
         startActivityForResult(intent, 1);
     }
 
@@ -77,4 +101,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // WHEN THE APPLICATION IS STOPPED, SAVE THE MEDICINE THAT HAS BEEN ADDED TO THE LIST
+    @Override
+    public void onStop(){
+        super.onStop();
+        saveName = SavedMedicine.getInstance().getMedicine(SavedMedicine.getInstance().getMedicine().size() - 1).getName();
+        saveDesc = SavedMedicine.getInstance().getMedicine(SavedMedicine.getInstance().getMedicine().size() - 1).getDesc();
+
+        SharedPreferences prefPut =getSharedPreferences("Preferences", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = prefPut.edit();
+        prefEditor.putString("MedicineName", saveName);
+        prefEditor.putString("MedicineDesc", saveDesc);
+        prefEditor.commit();
+    }
 }
