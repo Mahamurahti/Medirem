@@ -10,8 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import static com.example.medirem_project.AddMedicineActivity.EXTRA_ADD;
-
 /**
  * MainActivity holds the calendar and the main functions of this app
  * @author Eric Keränen
@@ -65,8 +63,9 @@ public class MainActivity extends AppCompatActivity {
     protected  void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
-            String medName = data.getStringExtra(EXTRA_ADD);
-            SavedMedicine.getInstance().saveMedicine(medName, "Implement desc here");
+            String medName = data.getStringExtra("MedName");
+            String medDesc = data.getStringExtra("MedDesc");
+            SavedMedicine.getInstance().saveMedicine(medName, medDesc);
 
             listOfMed.setAdapter(new ArrayAdapter<Medicine>(
                     this,

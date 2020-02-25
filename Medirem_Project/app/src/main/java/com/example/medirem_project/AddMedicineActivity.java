@@ -15,8 +15,6 @@ import android.widget.TextView;
  */
 public class AddMedicineActivity extends AppCompatActivity {
 
-    public  static  final String EXTRA_ADD = "Add Medicine Activity Value";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +29,13 @@ public class AddMedicineActivity extends AppCompatActivity {
 
     public void addButton(View v){
         Intent intent = new Intent();
+        Intent intent2 = new Intent();
         EditText etMed = (EditText) findViewById(R.id.nameTheMed);
-        //EditText etDesc = (EditText) findViewById(R.id.nameTheDesc);
+        EditText etDesc = (EditText) findViewById(R.id.nameTheDesc);
         String message = etMed.getText().toString();
-        //String message2 = etDesc.getText().toString();
-        intent.putExtra(EXTRA_ADD, message);
+        String message2 = etDesc.getText().toString();
+        intent.putExtra("MedName", message);
+        intent2.putExtra("MedDesc", message2);
         setResult(1,intent);
         finish();
     }

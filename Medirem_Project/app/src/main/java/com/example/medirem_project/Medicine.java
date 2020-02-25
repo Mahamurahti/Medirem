@@ -1,7 +1,7 @@
 package com.example.medirem_project;
 
 /**
- * Medicine class holds the information of medicine, like description
+ * Medicine class holds the information of medicine, like name and description
  * @author Eric Keränen
  * @version 1.1 2/2019
  */
