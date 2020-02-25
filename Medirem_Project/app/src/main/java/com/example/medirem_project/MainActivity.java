@@ -11,9 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CalendarView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -30,11 +32,22 @@ public class MainActivity extends AppCompatActivity {
     private ListView listOfMed;
     private String medicineNameSaved, medicineDescSaved;
     private String saveName, saveDesc;
+    CalendarView calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        calendar = findViewById(R.id.calendarView);
+
+
+        //SETTING CALENDAR DAYCLICK
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SavedMedicine.getInstance().getMedicine();
+            }
+        });
 
         listOfMed = findViewById(R.id.listOfMedicine);
 
