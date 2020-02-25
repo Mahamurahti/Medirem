@@ -29,6 +29,7 @@ public class AddMedicineActivity extends AppCompatActivity {
 
     // UPON PRESSING THE ADD BUTTON, SENDS THE MEDICINE
     // NAME AND DESC TO THE SAVED MEDICINE LIST
+    // TODO: GET DESCRIPTION TO SHOW IN THE DETAILS ABOUT MEDICINES
     public void addButton(View v){
         Intent intent = new Intent();
         Intent intent2 = new Intent();
@@ -38,7 +39,7 @@ public class AddMedicineActivity extends AppCompatActivity {
         String message2 = etDesc.getText().toString();
         intent.putExtra("MedName", message);
         intent2.putExtra("MedDesc", message2);
-        setResult(1,intent);
+        setResult(1, intent);
         finish();
     }
 }

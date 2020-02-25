@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Debug;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     // TODO: GET CALENDAR TO WORK
     public  static  final String EXTRA_MAIN = "Main Activity Value";
 
+    private CalendarView cal;
+
     private ListView listOfMed;
     private String medicineNameSaved, medicineDescSaved;
     private String saveName, saveDesc;
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        cal = findViewById(R.id.calendarView);
         listOfMed = findViewById(R.id.listOfMedicine);
 
         // SETTING AN ADAPTER WITH A LIST VIEW TO SEE ALL MEDICINE
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, AddMedicineActivity.class);
         // TODO: TAKE DATE FROM CALENDAR
         String date = "24.2.2020";
-        intent.putExtra("Date", date);
+        intent.putExtra(EXTRA_MAIN, date);
         startActivityForResult(intent, 1);
     }
 
@@ -115,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // WHEN THE APPLICATION IS STOPPED, SAVE THE MEDICINE THAT HAS BEEN ADDED TO THE LIST
+    // TODO: SAVE MEDICINE TO A LIST THAT WILL STORE ALL THE DATA, CURRENTLY SAVES ONLY THE LATEST MEDICINE
     @Override
     public void onStop(){
         super.onStop();
