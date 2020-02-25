@@ -51,11 +51,7 @@ public class MainActivity extends AppCompatActivity {
         listOfMed = findViewById(R.id.listOfMedicine);
 
         // SETTING AN ADAPTER WITH A LIST VIEW TO SEE ALL MEDICINE
-        listOfMed.setAdapter(new ArrayAdapter<Medicine>(
-            this,
-            android.R.layout.simple_list_item_1,
-            SavedMedicine.getInstance().getMedicine()
-        ));
+        setAdapter();
 
         // SETTING THE ON CLICK LISTENER TO DETECT WHICH ELEMENT OF THE
         // LIST WAS CLICKED AND SHOW THE DETAILS OF THE MEDICINE
@@ -77,11 +73,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("LOG", "No savedPreferences");
         }else{
             SavedMedicine.getInstance().saveMedicine(medicineNameSaved, medicineDescSaved);
-            listOfMed.setAdapter(new ArrayAdapter<Medicine>(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    SavedMedicine.getInstance().getMedicine()
-            ));
+            setAdapter();
         }
 
     }
@@ -105,20 +97,20 @@ public class MainActivity extends AppCompatActivity {
                 String medName = data.getStringExtra("MedName");
                 String medDesc = data.getStringExtra("MedDesc");
                 SavedMedicine.getInstance().saveMedicine(medName, medDesc);
-
-                listOfMed.setAdapter(new ArrayAdapter<Medicine>(
-                        this,
-                        android.R.layout.simple_list_item_1,
-                        SavedMedicine.getInstance().getMedicine()
-                ));
+                setAdapter();
             }else if(resultCode == 0){
-                listOfMed.setAdapter(new ArrayAdapter<Medicine>(
-                        this,
-                        android.R.layout.simple_list_item_1,
-                        SavedMedicine.getInstance().getMedicine()
-                ));
+                Log.d("LOG", "Result Code was zero!");
+                setAdapter();
             }
         }
+    }
+
+    public void setAdapter(){
+        listOfMed.setAdapter(new ArrayAdapter<Medicine>(
+                this,
+                android.R.layout.simple_list_item_1,
+                SavedMedicine.getInstance().getMedicine()
+        ));
     }
 
     // WHEN THE APPLICATION IS STOPPED, SAVE THE MEDICINE THAT HAS BEEN ADDED TO THE LIST
