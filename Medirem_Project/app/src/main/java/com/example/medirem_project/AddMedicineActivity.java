@@ -39,7 +39,7 @@ public class AddMedicineActivity extends AppCompatActivity {
         String message2 = etDesc.getText().toString();
         intent.putExtra("MedName", message);
         intent2.putExtra("MedDesc", message2);
-        setResult(1,intent);
+        setResult(1, intent);
         finish();
     }
 }
