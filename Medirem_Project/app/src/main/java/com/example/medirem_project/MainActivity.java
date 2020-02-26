@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // SET ADAPTER METHOD TO MAKE THE CODE MORE SIMPLE
     public void setAdapter(){
         listOfMed.setAdapter(new ArrayAdapter<Medicine>(
                 this,
