@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * SavedMedicine is the singleton that holds all the saved medicine
+ * SavedMedicine is the singleton class that holds all the saved medicine information
  * @author Eric Keränen
  * @version 1.1 2/2019
  */
@@ -18,6 +18,10 @@ public class SavedMedicine {
         return ourInstance;
     }
 
+    /**
+     * Singleton constructor, must be private so it can be instantiated only once,
+     * henceforth it's a singleton.
+     */
     private SavedMedicine() {
         medicineList = new ArrayList<Medicine>();
         medicineList.add(new Medicine("Panadol", "Särkylääke, pitkäkestoinen"));
@@ -34,14 +38,28 @@ public class SavedMedicine {
         medicineList.add(new Medicine("Medirest", "Melatoniini"));
     }
 
+    /**
+     * Method for saving medicine to the list
+     * @param name name of the medicine (String)
+     * @param desc description of the medicine (String)
+     */
     public void saveMedicine(String name, String desc){
         medicineList.add(new Medicine(name, desc));
     }
 
+    /**
+     * Method for returning all medicine from the list
+     * @return all data from the list
+     */
     public List<Medicine> getMedicine(){
         return medicineList;
     }
 
+    /**
+     * Method for returning a specific medicine from the list
+     * @param i specific element from the list (int)
+     * @return all the data from the specific medicine from the list
+     */
     public Medicine getMedicine(int i){
         return medicineList.get(i);
     }
