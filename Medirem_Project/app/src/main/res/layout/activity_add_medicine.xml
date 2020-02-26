@@ -73,17 +73,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
 
-    <TextView
-        android:id="@+id/dateView"
-        android:layout_width="272dp"
-        android:layout_height="61dp"
-        android:gravity="center|center_horizontal|center_vertical"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/applyButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
     <Button
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
@@ -95,5 +84,28 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/applyButton" />
+
+    <Button
+        android:id="@+id/openDatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="dateOnClick"
+        android:text="OPEN DATE PICKER"
+        app:layout_constraintBottom_toTopOf="@+id/applyButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.47000003" />
+
+    <TextView
+        android:id="@+id/dateView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/openDatePicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTheDesc" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
