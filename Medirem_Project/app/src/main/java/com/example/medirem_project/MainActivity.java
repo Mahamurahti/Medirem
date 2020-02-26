@@ -28,17 +28,16 @@ public class MainActivity extends AppCompatActivity {
     // TODO: GET CALENDAR TO WORK
     public  static  final String EXTRA_MAIN = "Main Activity Value";
 
-    private CalendarView cal;
-
     private ListView listOfMed;
     private String medicineNameSaved, medicineDescSaved;
     private String saveName, saveDesc;
-    CalendarView calendar;
+    private CalendarView calendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
         calendar = findViewById(R.id.calendarView);
 
         //SETTING CALENDAR DAYCLICK
@@ -52,11 +51,7 @@ public class MainActivity extends AppCompatActivity {
         listOfMed = findViewById(R.id.listOfMedicine);
 
         // SETTING AN ADAPTER WITH A LIST VIEW TO SEE ALL MEDICINE
-        listOfMed.setAdapter(new ArrayAdapter<Medicine>(
-            this,
-            android.R.layout.simple_list_item_1,
-            SavedMedicine.getInstance().getMedicine()
-        ));
+        setAdapter();
 
         // SETTING THE ON CLICK LISTENER TO DETECT WHICH ELEMENT OF THE
         // LIST WAS CLICKED AND SHOW THE DETAILS OF THE MEDICINE
@@ -78,11 +73,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d("LOG", "No savedPreferences");
         }else{
             SavedMedicine.getInstance().saveMedicine(medicineNameSaved, medicineDescSaved);
-            listOfMed.setAdapter(new ArrayAdapter<Medicine>(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    SavedMedicine.getInstance().getMedicine()
-            ));
+            setAdapter();
         }
 
     }
@@ -102,16 +93,24 @@ public class MainActivity extends AppCompatActivity {
     protected  void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
-            String medName = data.getStringExtra("MedName");
-            String medDesc = data.getStringExtra("MedDesc");
-            SavedMedicine.getInstance().saveMedicine(medName, medDesc);
-
-            listOfMed.setAdapter(new ArrayAdapter<Medicine>(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    SavedMedicine.getInstance().getMedicine()
-            ));
+            if(resultCode == 1){
+                String medName = data.getStringExtra("MedName");
+                String medDesc = data.getStringExtra("MedDesc");
+                SavedMedicine.getInstance().saveMedicine(medName, medDesc);
+                setAdapter();
+            }else if(resultCode == 0){
+                Log.d("LOG", "Result Code was zero!");
+                setAdapter();
+            }
         }
+    }
+
+    public void setAdapter(){
+        listOfMed.setAdapter(new ArrayAdapter<Medicine>(
+                this,
+                android.R.layout.simple_list_item_1,
+                SavedMedicine.getInstance().getMedicine()
+        ));
     }
 
     // WHEN THE APPLICATION IS STOPPED, SAVE THE MEDICINE THAT HAS BEEN ADDED TO THE LIST
