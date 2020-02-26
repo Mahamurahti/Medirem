@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     private String medicinePreferencesSaved;
     private Gson gson;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
