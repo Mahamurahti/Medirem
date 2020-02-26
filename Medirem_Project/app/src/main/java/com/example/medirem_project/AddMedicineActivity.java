@@ -34,7 +34,7 @@ public class AddMedicineActivity extends AppCompatActivity {
     /**
      * When the user presses the add button, the Strings in the editText
      * fields will be saved into the list via saveMedicine method in the Singleton.
-     * @param v used for finding something in the screen view
+     * @param v used for finding something in the screen view (View)
      */
     public void addButton(View v){
         EditText etMed = (EditText) findViewById(R.id.nameTheMed);
@@ -49,7 +49,7 @@ public class AddMedicineActivity extends AppCompatActivity {
     /**
      * When the user presses the back button, this method will call the onBackPressed()
      * method that returns the user back to the previous view
-     * @param v used for finding something in the screen view
+     * @param v used for finding something in the screen view (View)
      */
     public  void  onBackPressed(View v){
         super.onBackPressed();

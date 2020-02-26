@@ -22,6 +22,10 @@ public class MedicineDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine_details);
 
+        /**
+         * Receiving the int i from the mainActivity to choose the correct element from the
+         * singleton list to display on the screen.
+         */
         Bundle b = getIntent().getExtras();
         int i = b.getInt(MainActivity.EXTRA_MAIN, 1);
 
