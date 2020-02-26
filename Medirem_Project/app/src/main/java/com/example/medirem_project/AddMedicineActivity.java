@@ -43,6 +43,15 @@ public class AddMedicineActivity extends AppCompatActivity {
         setResult(1, intent);
         finish();
     }
+    /*public void nameTextClicked(View v){
+        EditText edMed=findViewById(R.id.nameTheMed);
+        edMed.setText(" ");
+    }
+    public void descTextClicked(View v){
+        EditText edMed=findViewById(R.id.nameTheDesc);
+        edMed.setText(" ");
+
+    }*/
 
     public  void  onBackPressed(View v){
         super.onBackPressed();
