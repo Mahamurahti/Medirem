@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         calendar = findViewById(R.id.calendarView);
 
-
         //SETTING CALENDAR DAYCLICK
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        cal = findViewById(R.id.calendarView);
         listOfMed = findViewById(R.id.listOfMedicine);
 
         // SETTING AN ADAPTER WITH A LIST VIEW TO SEE ALL MEDICINE
