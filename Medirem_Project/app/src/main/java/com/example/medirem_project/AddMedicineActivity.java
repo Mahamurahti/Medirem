@@ -33,13 +33,13 @@ public class AddMedicineActivity extends AppCompatActivity {
     // TODO: GET DESCRIPTION TO SHOW IN THE DETAILS ABOUT MEDICINES
     public void addButton(View v){
         Intent intent = new Intent();
-        Intent intent2 = new Intent();
+        //Intent intent2 = new Intent();
         EditText etMed = (EditText) findViewById(R.id.nameTheMed);
-        EditText etDesc = (EditText) findViewById(R.id.nameTheDesc);
+        //EditText etDesc = (EditText) findViewById(R.id.nameTheDesc);
         String message = etMed.getText().toString();
-        String message2 = etDesc.getText().toString();
+        //String message2 = etDesc.getText().toString();
         intent.putExtra("MedName", message);
-        intent2.putExtra("MedDesc", message2);
+        //intent2.putExtra("MedDesc", message2);
         setResult(1, intent);
         finish();
     }
