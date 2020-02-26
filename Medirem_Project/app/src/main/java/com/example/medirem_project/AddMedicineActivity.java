@@ -30,8 +30,8 @@ public class AddMedicineActivity extends AppCompatActivity implements DatePicker
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medicine);
 
-        Button button = (Button) findViewById(R.id.openDatePicker);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button dateButton = (Button) findViewById(R.id.openDatePicker);
+        dateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment datePicker = new com.example.medirem_project.DatePicker();
