@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
             SavedMedicine.getInstance().saveMedicine(medicineNameSaved, medicineDescSaved);
             setAdapter();
         }
-
     }
 
     // SWITCH THE ACTIVITY TO ADD A MEDICINE TO THE LIST
@@ -93,10 +92,9 @@ public class MainActivity extends AppCompatActivity {
     protected  void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1){
+            Log.d("LOG", "Request Code was one!");
             if(resultCode == 1){
-                String medName = data.getStringExtra("MedName");
-                String medDesc = data.getStringExtra("MedDesc");
-                SavedMedicine.getInstance().saveMedicine(medName, medDesc);
+                Log.d("LOG", "Result Code was one!");
                 setAdapter();
             }else if(resultCode == 0){
                 Log.d("LOG", "Result Code was zero!");
