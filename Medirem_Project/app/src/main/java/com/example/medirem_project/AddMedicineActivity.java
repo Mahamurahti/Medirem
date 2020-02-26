@@ -21,29 +21,36 @@ public class AddMedicineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medicine);
 
-        // GETTING THE INTENT FROM MAIN ACTIVITY
+        /**
+         * Getting the intent from main activity, which is the date
+         * and setting it to the screen as the current date
+         */
         Intent intent = getIntent();
         String date = intent.getStringExtra(MainActivity.EXTRA_MAIN);
 
         ((TextView)findViewById(R.id.dateView)).setText(date);
     }
 
-    // UPON PRESSING THE ADD BUTTON, SENDS THE MEDICINE
-    // NAME AND DESC TO THE SAVED MEDICINE LIST
-    // TODO: GET DESCRIPTION TO SHOW IN THE DETAILS ABOUT MEDICINES
+    /**
+     * When the user presses the add button, the Strings in the editText
+     * fields will be saved into the list via saveMedicine method in the Singleton.
+     * @param v used for finding something in the screen view (View)
+     */
     public void addButton(View v){
-        Intent intent = new Intent();
-        //Intent intent2 = new Intent();
         EditText etMed = (EditText) findViewById(R.id.nameTheMed);
-        //EditText etDesc = (EditText) findViewById(R.id.nameTheDesc);
-        String message = etMed.getText().toString();
-        //String message2 = etDesc.getText().toString();
-        intent.putExtra("MedName", message);
-        //intent2.putExtra("MedDesc", message2);
-        setResult(1, intent);
+        EditText etDesc = (EditText) findViewById(R.id.nameTheDesc);
+        String medName = etMed.getText().toString();
+        String medDesc = etDesc.getText().toString();
+        SavedMedicine.getInstance().saveMedicine(medName, medDesc);
+        setResult(1);
         finish();
     }
 
+    /**
+     * When the user presses the back button, this method will call the onBackPressed()
+     * method that returns the user back to the previous view
+     * @param v used for finding something in the screen view (View)
+     */
     public  void  onBackPressed(View v){
         super.onBackPressed();
         setResult(0);
