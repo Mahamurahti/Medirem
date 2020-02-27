@@ -15,6 +15,8 @@ import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 
@@ -66,13 +68,18 @@ public class AddMedicineActivity extends AppCompatActivity implements DatePicker
     public void addButton(View v){
         EditText etMed = (EditText) findViewById(R.id.nameTheMed);
         EditText etDesc = (EditText) findViewById(R.id.nameTheDesc);
+        TextView tvDate = (TextView) findViewById(R.id.dateView);
         String medName = etMed.getText().toString();
         String medDesc = etDesc.getText().toString();
-        SavedMedicine.getInstance().saveMedicine(medName, medDesc);
+        String medDate = tvDate.getText().toString();
+        SavedMedicine.getInstance().saveMedicine(medName, medDesc, medDate);
         setResult(1);
         finish();
     }
-    /*public void nameTextClicked(View v){
+
+    //TODO: MAKE TEXT DISAPPEAR AFTER CLICKING IT FOR THE FIRST TIME
+    /*
+    public void nameTextClicked(View v){
         EditText edMed=findViewById(R.id.nameTheMed);
         edMed.setText(" ");
     }
@@ -80,7 +87,8 @@ public class AddMedicineActivity extends AppCompatActivity implements DatePicker
         EditText edMed=findViewById(R.id.nameTheDesc);
         edMed.setText(" ");
 
-    }*/
+    }
+    */
 
     /**
      * When the user presses the back button, this method will call the onBackPressed()

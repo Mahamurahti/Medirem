@@ -35,8 +35,8 @@ public class SavedMedicine {
      * @param name name of the medicine (String)
      * @param desc description of the medicine (String)
      */
-    public void saveMedicine(String name, String desc){
-        medicineList.add(new Medicine(name, desc));
+    public void saveMedicine(String name, String desc, String date){
+        medicineList.add(new Medicine(name, desc, date));
     }
 
     /**

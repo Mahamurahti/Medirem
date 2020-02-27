@@ -7,7 +7,7 @@ package com.example.medirem_project;
  */
 public class Medicine {
 
-    private String name, desc;
+    private String name, desc, date;
 
     // TODO: ADD TIME TO TAKE THE PILL
     /**
@@ -15,9 +15,10 @@ public class Medicine {
      * @param name name of the medicine
      * @param desc description of the medicine
      */
-    public Medicine(String name, String desc){
+    public Medicine(String name, String desc, String date){
         this.name = name;
         this.desc = desc;
+        this.date = date;
     }
 
     @Override
@@ -39,5 +40,13 @@ public class Medicine {
      */
     public String getDesc(){
         return this.desc;
+    }
+
+    /**
+     * ethod return medicine date
+     * @return the date where the medicine is saved
+     */
+    public String getDate(){
+        return this.date;
     }
 }
