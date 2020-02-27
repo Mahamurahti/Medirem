@@ -12,11 +12,20 @@ import android.widget.TextView;
  */
 public class MedicineDetailsActivity extends AppCompatActivity {
 
+    /**
+     * During onCreate in this activity, the intent from clicking an element
+     * in the main activity gets transferred into here and set to textViews
+     * @param savedInstanceState a reference to a bundle object
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine_details);
 
+        /**
+         * Receiving the int i from the mainActivity to choose the correct element from the
+         * singleton list to display on the screen.
+         */
         Bundle b = getIntent().getExtras();
         int i = b.getInt(MainActivity.EXTRA_MAIN, 1);
 

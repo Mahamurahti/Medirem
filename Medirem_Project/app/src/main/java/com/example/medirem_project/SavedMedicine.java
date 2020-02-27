@@ -1,5 +1,6 @@
 package com.example.medirem_project;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +12,12 @@ import java.util.List;
 public class SavedMedicine {
     private static final SavedMedicine ourInstance = new SavedMedicine();
 
-    private List<Medicine> medicineList;
+    private ArrayList<Medicine> medicineList;
 
-    // SINGLETON CLASS
+    /**
+     * Method for getting the instance of the singleton
+     * @return the instance that is the constructor
+     */
     public static SavedMedicine getInstance() {
         return ourInstance;
     }
@@ -24,18 +28,6 @@ public class SavedMedicine {
      */
     private SavedMedicine() {
         medicineList = new ArrayList<Medicine>();
-        medicineList.add(new Medicine("Panadol", "Särkylääke, pitkäkestoinen"));
-        medicineList.add(new Medicine("Burana", "Särkylääke, lyhytkestoinen"));
-        medicineList.add(new Medicine("Linatil", "Korkeanverenpaineen hallinta"));
-        medicineList.add(new Medicine("Misoprolol", "Korkeanverenpaineen hallintaa ja turvotukseen"));
-        medicineList.add(new Medicine("Ibuprofeeni", "Kipu ja särkylääke"));
-        medicineList.add(new Medicine("Simvastatin", "Kolesterolilääke"));
-        medicineList.add(new Medicine("Tryptiili", "Migreeni esto lääke"));
-        medicineList.add(new Medicine("Aspirin", "Tulehdus ja päänsärky lääke"));
-        medicineList.add(new Medicine("Somac", "Närästyslääke"));
-        medicineList.add(new Medicine("Rennie", "Närästyslääke"));
-        medicineList.add(new Medicine("Morfiini", "Krapulatärinän parannuslääke"));
-        medicineList.add(new Medicine("Medirest", "Melatoniini"));
     }
 
     /**
@@ -62,6 +54,14 @@ public class SavedMedicine {
      */
     public Medicine getMedicine(int i){
         return medicineList.get(i);
+    }
+
+    /**
+     * Method for setting a new list to the Singleton list
+     * @param list the new list you want to paste into the singleton list
+     */
+    public void setMedicine(ArrayList<Medicine> list){
+        medicineList = list;
     }
 
 }

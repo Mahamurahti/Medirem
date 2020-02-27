@@ -9,8 +9,12 @@ public class Medicine {
 
     private String name, desc;
 
-    // A NORMAL CLASS TO STORE MEDICINE DATA
     // TODO: ADD TIME TO TAKE THE PILL
+    /**
+     * Constructor for Medicine class
+     * @param name name of the medicine
+     * @param desc description of the medicine
+     */
     public Medicine(String name, String desc){
         this.name = name;
         this.desc = desc;
@@ -21,10 +25,18 @@ public class Medicine {
         return this.name;
     }
 
+    /**
+     * Method returns medicine name
+     * @return medicine name
+     */
     public String getName(){
         return this.name;
     }
 
+    /**
+     * Method returns medicine description
+     * @return description
+     */
     public String getDesc(){
         return this.desc;
     }
