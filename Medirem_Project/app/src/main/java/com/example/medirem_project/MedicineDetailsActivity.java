@@ -39,11 +39,26 @@ public class MedicineDetailsActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.medicineDate)).setText(SavedMedicine.getInstance().getMedicine(i).getDate());
     }
 
+    /**
+     * Remove button makes an alert dialog pop-up asking the user confirmation
+     * to remove the current medicine from the application. If the user answers "no"
+     * nothing will happen and if the user answers "remove" the medicine will be removed.
+     * @param v used for finding something in the screen view (View)
+     */
     public void removeButton(View v){
 
         Bundle b = getIntent().getExtras();
         final int i = b.getInt(MainActivity.EXTRA_MAIN, 0);
 
+        /**
+         * Building the dialog:
+         * 1. Creating the dialog
+         * 2. Setting the title, message and icon
+         * 3. Setting the buttons
+         * 4. Setting an onClickListener
+         * 5. Dismissing the dialog after either one is clicked
+         *    and executing commands accordingly
+         */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Removing medicine");
         builder.setMessage("Do you want to remove " + SavedMedicine.getInstance().getMedicine(i).getName() + "?");
