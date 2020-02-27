@@ -40,6 +40,14 @@ public class SavedMedicine {
     }
 
     /**
+     * Method for removing medicine form the list
+     * @param i removes the medicine determined by the index
+     */
+    public void removeMedicine(int i){
+        medicineList.remove(i);
+    }
+
+    /**
      * Method for returning all medicine from the list
      * @return all data from the list
      */

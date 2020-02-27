@@ -67,6 +67,7 @@
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
         android:background="#00F60505"
         android:onClick="onBackPressed"
         android:text="Back"

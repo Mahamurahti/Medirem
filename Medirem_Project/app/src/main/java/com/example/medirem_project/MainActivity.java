@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
-    // TODO: SAVE THE MEDICINE TO A DATE
+    // TODO: SAVE THE MEDICINE TO A TIME
     /**
      * This method fetches the result from the AddMedicineActivity.
      * @param requestCode the code that is used to request the activity (int)
@@ -123,8 +123,15 @@ public class MainActivity extends AppCompatActivity {
         ));
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        setAdapter();
+    }
+
     /**
-     * Upon closing the app, this method will create a new list that will be saved
+     * Upon closing the app, this method will create a new list.
+     * The saved medicine will be stored in this list be saved
      * to a gson file that will be saved to sharedPreferences.
      */
     @Override
