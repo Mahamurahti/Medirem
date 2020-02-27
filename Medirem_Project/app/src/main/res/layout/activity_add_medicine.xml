@@ -37,7 +37,7 @@
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="150dp"
-        android:text="Give a small description to your medicine"
+        android:text="Give a small description of your medicine"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/nameTheDesc"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,9 +60,11 @@
         android:id="@+id/applyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#00F60505"
         android:onClick="addButton"
         android:text="Add"
-        android:textSize="24sp"
+        android:textColor="#C4DD0909"
+        android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,9 +94,11 @@
 
     <Button
         android:id="@+id/openDatePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:background="#B0EB2020"
         android:text="select date"
+        android:textColor="#F8FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.11"
@@ -111,6 +115,6 @@
         app:layout_constraintHorizontal_bias="0.23"
         app:layout_constraintStart_toEndOf="@+id/openDatePicker"
         app:layout_constraintTop_toBottomOf="@+id/nameTheDesc"
-        app:layout_constraintVertical_bias="0.81" />
+        app:layout_constraintVertical_bias="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
