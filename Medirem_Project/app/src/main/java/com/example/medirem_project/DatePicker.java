@@ -9,12 +9,16 @@ import androidx.fragment.app.DialogFragment;
 
 import java.util.Calendar;
 /**
- * Add medicine activity adds custom medicine to the list
+ * DatePicker defines calendar and current day to it
  * @author Salla Mikkonen
  * @version 1.1 2/2019
  */
 public class DatePicker extends DialogFragment {
 
+    /**
+     * This method defines the calendar which will be opened in AddMedicineActivity.
+     * return new DatePickerDialog defines the current day to the calendar
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

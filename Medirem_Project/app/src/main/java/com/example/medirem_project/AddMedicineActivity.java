@@ -31,7 +31,8 @@ public class AddMedicineActivity extends AppCompatActivity implements DatePicker
         setContentView(R.layout.activity_add_medicine);
 
         /**
-         * Salla tee javaDoc
+         * Date button to open the calendar (DatePicker fragment) is being created.
+         * DatePicker comes from DatePicker class and calls the calendar.
          */
         Button dateButton = (Button) findViewById(R.id.openDatePicker);
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -44,7 +45,9 @@ public class AddMedicineActivity extends AppCompatActivity implements DatePicker
     }
 
     /**
-     * Salla tee javaDoc
+     *The text to the date view window is being set by
+     * onDateSet method to the textWindow and is found by DateFormat.getDateInstance which is the
+     * picked day
      */
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
