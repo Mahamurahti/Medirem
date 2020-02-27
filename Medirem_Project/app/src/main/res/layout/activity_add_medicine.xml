@@ -56,21 +56,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/applyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#00F60505"
-        android:onClick="addButton"
-        android:text="Add"
-        android:textColor="#C4DD0909"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="0.36" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
@@ -116,5 +101,21 @@
         app:layout_constraintStart_toEndOf="@+id/openDatePicker"
         app:layout_constraintTop_toBottomOf="@+id/nameTheDesc"
         app:layout_constraintVertical_bias="0.95" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:backgroundTint="#00FAF5F5"
+        android:foregroundGravity="center"
+        android:onClick="addButton"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.88"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTheDesc"
+        app:layout_constraintVertical_bias="0.97"
+        app:srcCompat="@drawable/chill_pill" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
