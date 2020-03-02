@@ -5,13 +5,13 @@ import androidx.fragment.app.DialogFragment;
 
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.icu.text.TimeZoneFormat;
+import android.util.TimeFormatException;
 import android.widget.DatePicker;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -23,7 +23,8 @@ import java.util.Calendar;
  * @author Eric Keränen & Salla Mikkonen
  * @version 1.1 2/2019
  */
-public class AddMedicineActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class AddMedicineActivity extends AppCompatActivity
+        implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,14 @@ public class AddMedicineActivity extends AppCompatActivity implements DatePicker
             public void onClick(View v) {
                 DialogFragment datePicker = new com.example.medirem_project.DatePicker();
                 datePicker.show(getSupportFragmentManager(), "date picker");
+            }
+        });
+        Button timeButton = (Button) findViewById(R.id.openTimePicker);
+        timeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment timePicker = new com.example.medirem_project.TimePicker();
+                timePicker.show(getSupportFragmentManager(), "time picker");
             }
         });
     }
@@ -59,6 +68,12 @@ public class AddMedicineActivity extends AppCompatActivity implements DatePicker
 
         TextView dateTextView = (TextView) findViewById(R.id.dateView);
         dateTextView.setText(currentDateString);
+    }
+
+    @Override
+    public void onTimeSet(android.widget.TimePicker view, int hourOfDay, int minute) {
+        TextView textView = (TextView) findViewById(R.id.timeView);
+        textView.setText( "hh:mm " + hourOfDay + " : " + minute);
     }
 
     /**

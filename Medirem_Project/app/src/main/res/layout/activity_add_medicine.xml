@@ -118,4 +118,28 @@
         app:layout_constraintVertical_bias="0.97"
         app:srcCompat="@drawable/chill_pill" />
 
+    <Button
+        android:id="@+id/openTimePicker"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:background="#B0EB2020"
+        android:foregroundGravity="center"
+        android:text="Select time"
+        android:textColor="#F8F1F1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/openDatePicker"
+        app:layout_constraintVertical_bias="0.13" />
+
+    <TextView
+        android:id="@+id/timeView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/openTimePicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/openTimePicker" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
