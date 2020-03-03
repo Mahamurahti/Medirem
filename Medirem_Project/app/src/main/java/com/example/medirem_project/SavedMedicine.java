@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * SavedMedicine is the singleton class that holds all the saved medicine information
  * @author Eric Keränen
- * @version 1.1 2/2019
+ * @version 1.1 2/2020
  */
 public class SavedMedicine {
     private static final SavedMedicine ourInstance = new SavedMedicine();
@@ -35,8 +35,8 @@ public class SavedMedicine {
      * @param name name of the medicine (String)
      * @param desc description of the medicine (String)
      */
-    public void saveMedicine(String name, String desc, String date){
-        medicineList.add(new Medicine(name, desc, date));
+    public void saveMedicine(String name, String desc, String date, String time){
+        medicineList.add(new Medicine(name, desc, date, time));
     }
 
     /**

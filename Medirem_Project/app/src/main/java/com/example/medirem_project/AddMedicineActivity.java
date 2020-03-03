@@ -23,7 +23,7 @@ import java.util.Calendar;
 /**
  * Add medicine activity adds custom medicine to the list
  * @author Eric Keränen & Salla Mikkonen
- * @version 1.1 2/2019
+ * @version 1.3 2/2020
  */
 public class AddMedicineActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -45,6 +45,10 @@ public class AddMedicineActivity extends AppCompatActivity
                 datePicker.show(getSupportFragmentManager(), "date picker");
             }
         });
+
+        /**
+         * SallaDoc
+         */
         Button timeButton = (Button) findViewById(R.id.openTimePicker);
         timeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,9 +60,13 @@ public class AddMedicineActivity extends AppCompatActivity
     }
 
     /**
-     *The text to the date view window is being set by
-     * onDateSet method to the textWindow and is found by DateFormat.getDateInstance which is the
-     * picked day
+     * This method opens the calendar and the user get to pick
+     * a date where the user wants to save the medicine to.
+     * After picking a date it will be displayed in a text view.
+     * @param view used for finding something in the screen view (View)
+     * @param year is found from datePicker activity with Calendar.YEAR (int)
+     * @param month is found from datePicker activity with Calendar.MONTH (int)
+     * @param dayOfMonth is found from datePicker activity with Calendar.DAY_OF_MONTH (int)
      */
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -72,25 +80,44 @@ public class AddMedicineActivity extends AppCompatActivity
         dateTextView.setText(currentDateString);
     }
 
+    /**
+     * This method opens a clock and the user get to pick
+     * a time where the user wants to save the medicine to.
+     * After picking the time it will be displayed in a text view.
+     * @param view used for finding something in the screen view (View)
+     * @param hourOfDay is found from timePicker activity with Calendar.HOUR_OF_DAY (int)
+     * @param minute is found from timePicker activity with Calendar.Minute (int)
+     */
     @Override
     public void onTimeSet(android.widget.TimePicker view, int hourOfDay, int minute) {
-        TextView textView = (TextView) findViewById(R.id.timeView);
-        textView.setText( "hh:mm " + hourOfDay + " : " + minute);
+        TextView tvTime = (TextView) findViewById(R.id.timeView);
+        if(hourOfDay < 10 && minute < 10){
+            tvTime.setText("0" + hourOfDay + ":0" + minute);
+        }else if(hourOfDay < 10){
+            tvTime.setText("0" + hourOfDay + ":" + minute);
+        }else if(minute < 10){
+            tvTime.setText(hourOfDay + ":0" + minute);
+        }else{
+            tvTime.setText(hourOfDay + ":" + minute);
+        }
     }
 
     /**
-     * When the user presses the add button, the Strings in the editText
+     * When the user presses the add button, the Strings in the editText and textView
      * fields will be saved into the list via saveMedicine method in the Singleton.
+     * After adding the medicine this activity will end.
      * @param v used for finding something in the screen view (View)
      */
     public void addButton(View v){
         EditText etMed = (EditText) findViewById(R.id.nameTheMed);
         EditText etDesc = (EditText) findViewById(R.id.nameTheDesc);
         TextView tvDate = (TextView) findViewById(R.id.dateView);
+        TextView tvTime = (TextView) findViewById(R.id.timeView);
         String medName = etMed.getText().toString();
         String medDesc = etDesc.getText().toString();
         String medDate = tvDate.getText().toString();
-        SavedMedicine.getInstance().saveMedicine(medName, medDesc, medDate);
+        String medTime = tvTime.getText().toString();
+        SavedMedicine.getInstance().saveMedicine(medName, medDesc, medDate, medTime);
         setResult(1);
         finish();
     }
@@ -110,7 +137,7 @@ public class AddMedicineActivity extends AppCompatActivity
 
     /**
      * When the user presses the back button, this method will call the onBackPressed()
-     * method that returns the user back to the previous view
+     * method from the superclass that returns the user back to the previous view
      * @param v used for finding something in the screen view (View)
      */
     public  void  onBackPressed(View v){

@@ -12,7 +12,7 @@ import android.widget.Toast;
 /**
  * Medicine Details Activity shows the description of the clicked medicine
  * @author Eric Keränen
- * @version 1.1 2/2019
+ * @version 1.3 2/2020
  */
 public class MedicineDetailsActivity extends AppCompatActivity {
 
@@ -28,8 +28,9 @@ public class MedicineDetailsActivity extends AppCompatActivity {
 
         // TODO: SAVE TIME
         /**
-         * Receiving the int i from the mainActivity to choose the correct element from the
-         * singleton list to display on the screen. Displays the medicine name, description and date.
+         * Receiving the int i as an intent from the mainActivity to choose the correct
+         * element from the singleton list to display on the screen.
+         * Displays the medicine name, description, date and time.
          */
         Bundle b = getIntent().getExtras();
         int i = b.getInt(MainActivity.EXTRA_MAIN, 1);
@@ -37,6 +38,7 @@ public class MedicineDetailsActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.medicineName)).setText(SavedMedicine.getInstance().getMedicine(i).getName());
         ((TextView)findViewById(R.id.medicineDesc)).setText(SavedMedicine.getInstance().getMedicine(i).getDesc());
         ((TextView)findViewById(R.id.medicineDate)).setText(SavedMedicine.getInstance().getMedicine(i).getDate());
+        ((TextView)findViewById(R.id.medicineTime)).setText(SavedMedicine.getInstance().getMedicine(i).getTime());
     }
 
     /**

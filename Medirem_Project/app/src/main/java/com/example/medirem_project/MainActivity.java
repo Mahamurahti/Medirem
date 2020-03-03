@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * MainActivity holds the calendar and the main functions of this app
  * @author Eric Keränen
- * @version 1.1 2/2019
+ * @version 1.1 2/2020
 */
 public class MainActivity extends AppCompatActivity {
 
@@ -123,6 +123,10 @@ public class MainActivity extends AppCompatActivity {
         ));
     }
 
+    /**
+     * This method is called when the user returns from any of the activities
+     * back to the main activity and will update the UI to match latest changes.
+     */
     @Override
     public void onResume(){
         super.onResume();
@@ -131,8 +135,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Upon closing the app, this method will create a new list.
-     * The saved medicine will be stored in this list be saved
-     * to a gson file that will be saved to sharedPreferences.
+     * The saved medicine list from the singleton will be stored in this new list
+     * and be saved to a gson file that will be saved to sharedPreferences.
      */
     @Override
     public void onStop(){

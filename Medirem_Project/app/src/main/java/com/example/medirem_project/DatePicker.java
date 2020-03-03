@@ -11,13 +11,13 @@ import java.util.Calendar;
 /**
  * DatePicker defines calendar and current day to it
  * @author Salla Mikkonen
- * @version 1.1 2/2019
+ * @version 1.1 2/2020
  */
 public class DatePicker extends DialogFragment {
 
     /**
      * This method defines the calendar which will be opened in AddMedicineActivity.
-     * return new DatePickerDialog defines the current day to the calendar
+     * @return new DatePickerDialog that defines the current day to the calendar
      */
     @NonNull
     @Override
