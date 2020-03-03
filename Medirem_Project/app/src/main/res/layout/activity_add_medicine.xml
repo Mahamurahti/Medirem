@@ -13,8 +13,8 @@
         android:layout_height="40dp"
         android:layout_marginTop="100dp"
         android:ems="10"
+        android:hint="Name"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,8 +50,8 @@
         android:layout_height="0dp"
         android:layout_marginTop="200dp"
         android:ems="10"
+        android:hint="Description"
         android:inputType="textPersonName"
-        android:text="Description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -82,26 +82,28 @@
         android:id="@+id/openDatePicker"
         android:layout_width="100dp"
         android:layout_height="25dp"
-        android:background="#B0EB2020"
+        android:background="#00F5F1F1"
         android:text="select date"
-        android:textColor="#F8FFFFFF"
+        android:textColor="#A4F81111"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintHorizontal_bias="0.21"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTheDesc"
-        app:layout_constraintVertical_bias="0.110000014" />
+        app:layout_constraintVertical_bias="0.120000005" />
 
     <TextView
         android:id="@+id/dateView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/openDatePicker"
+        android:foregroundGravity="left"
+        android:gravity="left"
+        app:layout_constraintBottom_toTopOf="@+id/openTimePicker"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.23"
-        app:layout_constraintStart_toEndOf="@+id/openDatePicker"
-        app:layout_constraintTop_toBottomOf="@+id/nameTheDesc"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/openDatePicker"
+        app:layout_constraintVertical_bias="0.3" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -123,24 +125,52 @@
         android:id="@+id/openTimePicker"
         android:layout_width="100dp"
         android:layout_height="25dp"
-        android:background="#B0EB2020"
+        android:background="#00F8F4F4"
         android:foregroundGravity="center"
         android:text="Select time"
-        android:textColor="#F8F1F1"
+        android:textColor="#A4F81111"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintHorizontal_bias="0.21"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/openDatePicker"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.257" />
 
     <TextView
         android:id="@+id/timeView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBaseline_toBaselineOf="@+id/openTimePicker"
+        android:foregroundGravity="left"
+        android:gravity="left"
+        app:layout_constraintBottom_toTopOf="@+id/backButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/openTimePicker" />
+        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/openTimePicker"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <ImageView
+        android:id="@+id/calendarImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/openDatePicker"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTheDesc"
+        app:layout_constraintVertical_bias="0.110000014"
+        app:srcCompat="@drawable/calendarchill_copy22" />
+
+    <ImageView
+        android:id="@+id/clockImage"
+        android:layout_width="30dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/openTimePicker"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarImage"
+        app:layout_constraintVertical_bias="0.24000001"
+        app:srcCompat="@drawable/clock_copy2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

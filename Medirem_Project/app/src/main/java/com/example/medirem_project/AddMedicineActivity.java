@@ -6,8 +6,6 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.icu.text.TimeZoneFormat;
-import android.util.TimeFormatException;
 import android.widget.DatePicker;
 import android.os.Bundle;
 import android.view.View;
@@ -101,6 +99,7 @@ public class AddMedicineActivity extends AppCompatActivity
             tvTime.setText(hourOfDay + ":" + minute);
         }
     }
+
 
     /**
      * When the user presses the add button, the Strings in the editText and textView
