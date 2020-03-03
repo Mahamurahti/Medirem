@@ -34,6 +34,8 @@ public class SavedMedicine {
      * Method for saving medicine to the list
      * @param name name of the medicine (String)
      * @param desc description of the medicine (String)
+     * @param date date where the medicine is saved to (String)
+     * @param time time where the medicine is saved to (String)
      */
     public void saveMedicine(String name, String desc, String date, String time){
         medicineList.add(new Medicine(name, desc, date, time));
