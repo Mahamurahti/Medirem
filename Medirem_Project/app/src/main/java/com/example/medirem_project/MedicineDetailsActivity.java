@@ -84,7 +84,7 @@ public class MedicineDetailsActivity extends AppCompatActivity {
 
     /**
      * When the user presses the back button, this method will call the onBackPressed()
-     * method that returns the user back to the previous view
+     * method from the superclass that returns the user back to the previous view.
      * @param v used for finding something in the screen view (View)
      */
     public  void  onBackPressed(View v){

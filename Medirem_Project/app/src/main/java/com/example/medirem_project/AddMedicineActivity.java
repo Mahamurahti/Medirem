@@ -19,9 +19,9 @@ import java.text.DateFormat;
 import java.util.Calendar;
 
 /**
- * Add medicine activity adds custom medicine to the list
+ * Add medicine activity adds custom medicine to the list which the user has to type in.
  * @author Eric Keränen & Salla Mikkonen
- * @version 1.3 2/2020
+ * @version 1.5 2/2020
  */
 public class AddMedicineActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -32,8 +32,8 @@ public class AddMedicineActivity extends AppCompatActivity
         setContentView(R.layout.activity_add_medicine);
 
         /**
-         * Date button to open the calendar (DatePicker fragment) is being created.
-         * DatePicker comes from DatePicker class and calls the calendar.
+         * Date button to open a calendar (DatePicker fragment) when the user presses the select date button.
+         * Date picker comes from DatePicker class and calls the calendar.
          */
         Button dateButton = (Button) findViewById(R.id.openDatePicker);
         dateButton.setOnClickListener(new View.OnClickListener() {
@@ -45,7 +45,8 @@ public class AddMedicineActivity extends AppCompatActivity
         });
 
         /**
-         * SallaDoc
+         * Time button to open a clock (TimePicker fragment) when the user presses the select time button.
+         * Time picker comes from TimePicker class and calls the clock.
          */
         Button timeButton = (Button) findViewById(R.id.openTimePicker);
         timeButton.setOnClickListener(new View.OnClickListener() {
@@ -58,8 +59,7 @@ public class AddMedicineActivity extends AppCompatActivity
     }
 
     /**
-     * This method opens the calendar and the user get to pick
-     * a date where the user wants to save the medicine to.
+     * This method saves the information that the user selects in the opened calendar.
      * After picking a date it will be displayed in a text view.
      * @param view used for finding something in the screen view (View)
      * @param year is found from datePicker activity with Calendar.YEAR (int)
@@ -79,9 +79,9 @@ public class AddMedicineActivity extends AppCompatActivity
     }
 
     /**
-     * This method opens a clock and the user get to pick
-     * a time where the user wants to save the medicine to.
-     * After picking the time it will be displayed in a text view.
+     * This method saves the information that the user selects in the opened clock.
+     * After picking the time it will be displayed in a text view. The displaying has
+     * a small logic pool to add zeroes in front of numbers smaller than 10 (e.g. 8:1 -> 08:01).
      * @param view used for finding something in the screen view (View)
      * @param hourOfDay is found from timePicker activity with Calendar.HOUR_OF_DAY (int)
      * @param minute is found from timePicker activity with Calendar.Minute (int)
@@ -122,7 +122,7 @@ public class AddMedicineActivity extends AppCompatActivity
 
     /**
      * When the user presses the back button, this method will call the onBackPressed()
-     * method from the superclass that returns the user back to the previous view
+     * method from the superclass that returns the user back to the previous view.
      * @param v used for finding something in the screen view (View)
      */
     public  void  onBackPressed(View v){
