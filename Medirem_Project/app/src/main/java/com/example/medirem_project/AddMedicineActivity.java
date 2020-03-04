@@ -120,20 +120,6 @@ public class AddMedicineActivity extends AppCompatActivity
         setResult(1);
         finish();
     }
-
-    //TODO: MAKE TEXT DISAPPEAR AFTER CLICKING IT FOR THE FIRST TIME
-    /*
-    public void nameTextClicked(View v){
-        EditText edMed=findViewById(R.id.nameTheMed);
-        edMed.setText(" ");
-    }
-    public void descTextClicked(View v){
-        EditText edMed=findViewById(R.id.nameTheDesc);
-        edMed.setText(" ");
-
-    }
-    */
-
     /**
      * When the user presses the back button, this method will call the onBackPressed()
      * method from the superclass that returns the user back to the previous view
