@@ -26,10 +26,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * MainActivity holds the calendar and the main functions of this app
- * @author Eric Keränen
+ * @author Eric Keränen & Salla Mikkonen
  * @version 1.1 2/2020
 */
 public class MainActivity extends AppCompatActivity {
@@ -95,11 +96,11 @@ public class MainActivity extends AppCompatActivity {
                 SimpleDateFormat timeFormat = new SimpleDateFormat("MMM d, yyyy");
                 String finalCurDate = timeFormat.format(myDate);
                 Log.d("LOG", "onDateClick(" + dayOfMonth + "." + (month + 1) + "." + year + ")");
-                //Log.d("LOG", "SavedMedicine Date(" + SavedMedicine.getInstance().getMedicine(0).getDate() + ")");
                 Log.d("LOG", "onDateClick in format is " + finalCurDate);
                 newMedList.clear();
                 for (int i = 0; i < SavedMedicine.getInstance().getMedicine().size(); i++) {
-                    if (finalCurDate.equals(SavedMedicine.getInstance().getMedicine(i).getDate())) {
+                    // IN EMULATOR USE finalCurDate AND IN PHONE (FI) USE currentDate
+                    if (currentDate.equals(SavedMedicine.getInstance().getMedicine(i).getDate())) {
                         Log.d("LOG", "Current date and Medicine [" + i + "] matches!!! The match is  " + SavedMedicine.getInstance().getMedicine(i).getDate());
                         newMedList.add(SavedMedicine.getInstance().getMedicine(i));
                     }
