@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, MedicineDetailsActivity.class);
                 int trueIndex = SavedMedicine.getInstance().getMedicine().indexOf(newMedList.get(i));
                 intent.putExtra(EXTRA_MAIN, trueIndex);
-                startActivity(intent);
+                startActivityForResult(intent, 2);
             }
         });
 
@@ -154,6 +154,16 @@ public class MainActivity extends AppCompatActivity {
                 setAdapter(newMedList);
             }
         }
+        if(requestCode == 2){
+            Log.d("LOG", "Request Code was two!");
+            if(resultCode == 1){
+                Log.d("LOG", "Request Code was one!");
+                setAdapter(newMedList);
+            }else if(resultCode == 0) {
+                Log.d("LOG", "Request Code was zero!");
+                setAdapter(newMedList);
+            }
+        }
     }
 
     /**
@@ -175,6 +185,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
+        setAdapter(newMedList);
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
         setAdapter(newMedList);
     }
 

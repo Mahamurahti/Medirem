@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -68,6 +69,7 @@ public class MedicineDetailsActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
                 SavedMedicine.getInstance().removeMedicine(i);
+                setResult(1);
                 finish();
             }
         });
@@ -87,5 +89,7 @@ public class MedicineDetailsActivity extends AppCompatActivity {
      */
     public  void  onBackPressed(View v){
         super.onBackPressed();
+        setResult(0);
+        finish();
     }
 }
