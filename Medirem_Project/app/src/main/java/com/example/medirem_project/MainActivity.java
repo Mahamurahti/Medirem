@@ -1,5 +1,6 @@
 package com.example.medirem_project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
@@ -9,13 +10,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.ListView;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
     public  static  final String EXTRA_MAIN = "Main Activity Value";
 
     private ListView listOfMed;
+    private CalendarView c;
+    private ArrayAdapter<Medicine> adapter;
+    private ArrayList<Medicine> newMedList;
     private String medicinePreferencesSaved;
     private Gson gson;
 
@@ -39,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         listOfMed = findViewById(R.id.listOfMedicine);
+        c = findViewById(R.id.calendarView);
+        newMedList = new ArrayList<Medicine>();
+        String selectedDate = DateFormat.getDateInstance(DateFormat.FULL).format(c.getDate());
 
         /**
          * Gson file to store the medicine information
@@ -48,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * Setting an adapter with a list view to see all medicine from the singleton list
          */
-        setAdapter();
+        setAdapter(newMedList);
 
         /**
          * For the adapter we also set up an onItemClickListener to see which element the user
@@ -60,8 +75,36 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("LOG", "onItemClick(" + i + ")");
                 Intent intent = new Intent(MainActivity.this, MedicineDetailsActivity.class);
-                intent.putExtra(EXTRA_MAIN, i);
+                int trueIndex = SavedMedicine.getInstance().getMedicine().indexOf(newMedList.get(i));
+                intent.putExtra(EXTRA_MAIN, trueIndex);
                 startActivity(intent);
+            }
+        });
+
+        c.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                String currentDate = dayOfMonth + "." + (month + 1) + "." + year;
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.M.yyyy");
+                Date myDate = null;
+                try {
+                    myDate = dateFormat.parse(currentDate);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                SimpleDateFormat timeFormat = new SimpleDateFormat("MMM d, yyyy");
+                String finalCurDate = timeFormat.format(myDate);
+                Log.d("LOG", "onDateClick(" + dayOfMonth + "." + (month + 1) + "." + year + ")");
+                //Log.d("LOG", "SavedMedicine Date(" + SavedMedicine.getInstance().getMedicine(0).getDate() + ")");
+                Log.d("LOG", "onDateClick in format is " + finalCurDate);
+                newMedList.clear();
+                for (int i = 0; i < SavedMedicine.getInstance().getMedicine().size(); i++) {
+                    if (finalCurDate.equals(SavedMedicine.getInstance().getMedicine(i).getDate())) {
+                        Log.d("LOG", "Current date and Medicine [" + i + "] matches!!! The match is  " + SavedMedicine.getInstance().getMedicine(i).getDate());
+                        newMedList.add(SavedMedicine.getInstance().getMedicine(i));
+                    }
+                }
+                setAdapter(newMedList);
             }
         });
 
@@ -76,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<Medicine> medicineListBack = gson.fromJson(medicinePreferencesSaved, token.getType());
 
             SavedMedicine.getInstance().setMedicine(medicineListBack);
-            setAdapter();
+            setAdapter(newMedList);
         }
     }
 
@@ -104,10 +147,10 @@ public class MainActivity extends AppCompatActivity {
             Log.d("LOG", "Request Code was one!");
             if(resultCode == 1){
                 Log.d("LOG", "Result Code was one!");
-                setAdapter();
+                setAdapter(newMedList);
             }else if(resultCode == 0){
                 Log.d("LOG", "Result Code was zero!");
-                setAdapter();
+                setAdapter(newMedList);
             }
         }
     }
@@ -115,12 +158,13 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method sets the adapter so that the list will update
      */
-    public void setAdapter(){
-        listOfMed.setAdapter(new ArrayAdapter<Medicine>(
+    public void setAdapter(ArrayList<Medicine> theList){
+        adapter = new ArrayAdapter<Medicine>(
                 this,
                 android.R.layout.simple_list_item_1,
-                SavedMedicine.getInstance().getMedicine()
-        ));
+                theList
+        );
+        listOfMed.setAdapter(adapter);
     }
 
     /**
@@ -130,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        setAdapter();
+        setAdapter(newMedList);
     }
 
     /**

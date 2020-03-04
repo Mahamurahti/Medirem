@@ -53,7 +53,7 @@ public class SavedMedicine {
      * Method for returning all medicine from the list
      * @return all data from the list
      */
-    public List<Medicine> getMedicine(){
+    public ArrayList<Medicine> getMedicine(){
         return medicineList;
     }
 

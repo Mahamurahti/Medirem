@@ -26,7 +26,6 @@ public class MedicineDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_medicine_details);
 
-        // TODO: SAVE TIME
         /**
          * Receiving the int i as an intent from the mainActivity to choose the correct
          * element from the singleton list to display on the screen.

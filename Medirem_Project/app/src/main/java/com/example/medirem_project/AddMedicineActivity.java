@@ -72,7 +72,7 @@ public class AddMedicineActivity extends AppCompatActivity
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        String currentDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
 
         TextView dateTextView = (TextView) findViewById(R.id.dateView);
         dateTextView.setText(currentDateString);
@@ -100,7 +100,6 @@ public class AddMedicineActivity extends AppCompatActivity
         }
     }
 
-
     /**
      * When the user presses the add button, the Strings in the editText and textView
      * fields will be saved into the list via saveMedicine method in the Singleton.
@@ -120,19 +119,6 @@ public class AddMedicineActivity extends AppCompatActivity
         setResult(1);
         finish();
     }
-
-    //TODO: MAKE TEXT DISAPPEAR AFTER CLICKING IT FOR THE FIRST TIME
-    /*
-    public void nameTextClicked(View v){
-        EditText edMed=findViewById(R.id.nameTheMed);
-        edMed.setText(" ");
-    }
-    public void descTextClicked(View v){
-        EditText edMed=findViewById(R.id.nameTheDesc);
-        edMed.setText(" ");
-
-    }
-    */
 
     /**
      * When the user presses the back button, this method will call the onBackPressed()
