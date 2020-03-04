@@ -4,7 +4,7 @@ package com.example.medirem_project;
  * Medicine class holds the information of medicine, like
  * the medicines name, description, date and time.
  * @author Eric Keränen
- * @version 1.1 2/2020
+ * @version 1.3 2/2020
  */
 public class Medicine {
 
@@ -12,10 +12,10 @@ public class Medicine {
 
     /**
      * Constructor for Medicine class
-     * @param name name of the medicine
-     * @param desc description of the medicine
-     * @param date the date where the medicine is saved
-     * @param time the time where the medicine is saved
+     * @param name name of the medicine (String)
+     * @param desc description of the medicine (String)
+     * @param date the date where the medicine is saved (String)
+     * @param time the time where the medicine is saved (String)
      */
     public Medicine(String name, String desc, String date, String time){
         this.name = name;
