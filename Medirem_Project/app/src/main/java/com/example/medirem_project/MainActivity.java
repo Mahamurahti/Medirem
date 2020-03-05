@@ -7,28 +7,23 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import android.app.Activity;
-import android.app.usage.UsageEvents;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.EventLog;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
-import android.widget.DatePicker;
 import android.widget.ListView;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * MainActivity holds the calendar and the main functions of this app
@@ -43,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView listOfMed;
     private CalendarView c;
+    private String currentDate, finalCurDate;
     private ArrayAdapter<Medicine> adapter;
     private ArrayList<Medicine> newMedList;
     private String medicinePreferencesSaved;
@@ -52,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Log.d("LOG", "onCreate started");
 
         listOfMed = findViewById(R.id.listOfMedicine);
         c = findViewById(R.id.calendarView);
@@ -63,8 +61,11 @@ public class MainActivity extends AppCompatActivity {
         gson = new Gson();
 
         /**
-         * Setting an adapter with a list view to see all medicine from the singleton list
+         * Setting an opening view for the app, that set the current date to the variable currentDate (String)
+         *
+         * After setting the view an adapter set up with a list view to see all medicine from the singleton list
          */
+        SetOpeningView();
         setAdapter(newMedList);
 
         /**
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, MedicineDetailsActivity.class);
                 int trueIndex = SavedMedicine.getInstance().getMedicine().indexOf(newMedList.get(i));
                 intent.putExtra(EXTRA_MAIN, trueIndex);
+                // START MEDICINE DETAILS ACTIVITY
                 startActivityForResult(intent, 2);
             }
         });
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         c.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                String currentDate = dayOfMonth + "." + (month + 1) + "." + year;
+                currentDate = dayOfMonth + "." + (month + 1) + "." + year;
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd.M.yyyy");
                 Date myDate = null;
                 try {
@@ -109,19 +111,12 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 SimpleDateFormat timeFormat = new SimpleDateFormat("MMM d, yyyy");
-                String finalCurDate = timeFormat.format(myDate);
+                finalCurDate = timeFormat.format(myDate);
 
                 Log.d("LOG", "onDateClick(" + dayOfMonth + "." + (month + 1) + "." + year + ")");
                 Log.d("LOG", "onDateClick in format is " + finalCurDate);
 
-                newMedList.clear();
-                for (int i = 0; i < SavedMedicine.getInstance().getMedicine().size(); i++) {
-                    // IN EMULATOR USE finalCurDate AND IN PHONE (FI) USE currentDate
-                    if (finalCurDate.equals(SavedMedicine.getInstance().getMedicine(i).getDate())) {
-                        Log.d("LOG", "Current date and Medicine [" + i + "] matches!!! The match is  " + SavedMedicine.getInstance().getMedicine(i).getDate());
-                        newMedList.add(SavedMedicine.getInstance().getMedicine(i));
-                    }
-                }
+                RefreshList();
                 setAdapter(newMedList);
             }
         });
@@ -139,6 +134,12 @@ public class MainActivity extends AppCompatActivity {
             SavedMedicine.getInstance().setMedicine(medicineListBack);
             setAdapter(newMedList);
         }
+
+        /**
+         * Refreshing the list after the shared preferences have been inserted into the singleton list
+         */
+        RefreshList();
+
     }
 
     /**
@@ -148,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void addMedicine(View v){
         Intent intent = new Intent(MainActivity.this, AddMedicineActivity.class);
+        // START ADD MEDICINE ACTIVITY
         startActivityForResult(intent, 1);
     }
 
@@ -160,23 +162,36 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected  void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
+        // ADD MEDICINE ACTIVITY
         if(requestCode == 1){
             Log.d("LOG", "Request Code was one!");
-            if(resultCode == 1){
-                Log.d("LOG", "Result Code was one!");
+            if(resultCode == 2){
+                // REPEAT
+                Log.d("LOG", "Result code was two! Repeat was turned on.");
+                RefreshList();
+                setAdapter(newMedList);
+            }else if(resultCode == 1){
+                // NO REPEAT
+                Log.d("LOG", "Result Code was one! Repeat was turned off.");
+                RefreshList();
                 setAdapter(newMedList);
             }else if(resultCode == 0){
-                Log.d("LOG", "Result Code was zero!");
+                // BACK
+                Log.d("LOG", "Result Code was zero! Back was pressed.");
                 setAdapter(newMedList);
             }
         }
+        // MEDICINE DETAILS ACTIVITY
         if(requestCode == 2){
             Log.d("LOG", "Request Code was two!");
             if(resultCode == 1){
-                Log.d("LOG", "Request Code was one!");
+                // MEDICINE REMOVED
+                Log.d("LOG", "Result Code was one! Medicine was removed.");
+                RefreshList();
                 setAdapter(newMedList);
             }else if(resultCode == 0) {
-                Log.d("LOG", "Request Code was zero!");
+                // BACK
+                Log.d("LOG", "Result Code was zero! Back was pressed.");
                 setAdapter(newMedList);
             }
         }
@@ -193,6 +208,29 @@ public class MainActivity extends AppCompatActivity {
                 theList
         );
         listOfMed.setAdapter(adapter);
+    }
+
+    /**
+     * This method holds a loop that deletes everything form the temporary list and
+     * adds the medicine that have the same date as the currently selected date.
+     */
+    public void RefreshList(){
+        newMedList.clear();
+        for (int i = 0; i < SavedMedicine.getInstance().getMedicine().size(); i++) {
+            // IN EMULATOR USE finalCurDate AND IN PHONE (FI) USE currentDate
+            if (currentDate.equals(SavedMedicine.getInstance().getMedicine(i).getDate())) {
+                newMedList.add(SavedMedicine.getInstance().getMedicine(i));
+            }
+        }
+    }
+
+    /**
+     * Setting the current date to the current date variable (String)
+     */
+    public void SetOpeningView(){
+        SimpleDateFormat openingDateFormat = new SimpleDateFormat("d.M.yyyy");
+        currentDate = openingDateFormat.format(Calendar.getInstance().getTime());
+        Log.d("LOG", "currentDate is " + currentDate);
     }
 
     /**
