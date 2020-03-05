@@ -68,9 +68,9 @@ public class AddMedicineActivity extends AppCompatActivity
      * This method saves the information that the user selects in the opened calendar.
      * After picking a date it will be displayed in a text view.
      *
-     * @param view       used for finding something in the screen view (View)
-     * @param year       is found from datePicker activity with Calendar.YEAR (int)
-     * @param month      is found from datePicker activity with Calendar.MONTH (int)
+     * @param view used for finding something in the screen view (View)
+     * @param year is found from datePicker activity with Calendar.YEAR (int)
+     * @param month is found from datePicker activity with Calendar.MONTH (int)
      * @param dayOfMonth is found from datePicker activity with Calendar.DAY_OF_MONTH (int)
      */
     @Override
@@ -85,6 +85,12 @@ public class AddMedicineActivity extends AppCompatActivity
         dateTextView.setText(currentDateString);
     }
 
+    /**
+     * Radio buttons are used for selecting the repeat type, which are "Do not repeat" or "Repeat
+     * for a week" , depending on which is selected the variable repeat (boolean) is changed
+     * and when the add button is pressed the medicine will be saved in the way selected
+     * @param v used for finding something in the screen view (View)
+     */
     public void radioButton(View v) {
         boolean checked = ((RadioButton) v).isChecked();
 
@@ -129,6 +135,7 @@ public class AddMedicineActivity extends AppCompatActivity
     /**
      * When the user presses the add button, the Strings in the editText and textView
      * fields will be saved into the list via saveMedicine method in the Singleton.
+     * The medicine will be saved in two ways: repeating or no repeating.
      * After adding the medicine this activity will end.
      * @param v used for finding something in the screen view (View)
      */

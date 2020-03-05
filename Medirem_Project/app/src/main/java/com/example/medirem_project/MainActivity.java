@@ -18,11 +18,9 @@ import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.ListView;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView listOfMed;
     private CalendarView c;
-    private String currentDate, finalCurDate;
+    private String currentDate;
     private ArrayAdapter<Medicine> adapter;
     private ArrayList<Medicine> newMedList;
     private String medicinePreferencesSaved;
@@ -88,33 +86,23 @@ public class MainActivity extends AppCompatActivity {
         /**
          * An onDateChangeListener is set up for the calendar view to see which element of the calendar
          * the user clicks. The onSelectedDayChange method creates a date (String) that is used to
-         * identify which day it is in the code. If the application is used on an operating system
-         * in english, the date format is formatted to a similar format that the date picker
-         * gives in the AddMedicineActivity. If the application is used on an operating system in finnish,
-         * the date is given as a number so we don't need the formatting.
+         * identify which day it is in the code. This piece of software only works in operating systems
+         * that give the date in a number format, in this case it doesn't work with english but works
+         * with finnish.
          *
          * After formatting accordingly a new list is made to host temporary elements from the main list
          * which is located in the singleton class SavedMedicine. Before inserting new elements in the
-         * temporary list it is cleared not to reset it. After resetting only the medicine are added
+         * temporary list it is cleared not to bloat it (with RefreshList). After refreshing only the medicine are added
          * to the list that have the same date as the currently selected day from the calendar. This
          * way get the effect that only the medicine added to a certain date are displayed in the list.
          */
         c.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                currentDate = dayOfMonth + "." + (month + 1) + "." + year;
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.M.yyyy");
-                Date myDate = null;
-                try {
-                    myDate = dateFormat.parse(currentDate);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                SimpleDateFormat timeFormat = new SimpleDateFormat("MMM d, yyyy");
-                finalCurDate = timeFormat.format(myDate);
 
+                currentDate = dayOfMonth + "." + (month + 1) + "." + year;
                 Log.d("LOG", "onDateClick(" + dayOfMonth + "." + (month + 1) + "." + year + ")");
-                Log.d("LOG", "onDateClick in format is " + finalCurDate);
+                Log.d("LOG", "onDateClick in format is " + currentDate);
 
                 RefreshList();
                 setAdapter(newMedList);
@@ -217,7 +205,6 @@ public class MainActivity extends AppCompatActivity {
     public void RefreshList(){
         newMedList.clear();
         for (int i = 0; i < SavedMedicine.getInstance().getMedicine().size(); i++) {
-            // IN EMULATOR USE finalCurDate AND IN PHONE (FI) USE currentDate
             if (currentDate.equals(SavedMedicine.getInstance().getMedicine(i).getDate())) {
                 newMedList.add(SavedMedicine.getInstance().getMedicine(i));
             }
@@ -234,23 +221,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method is called when the user returns from any of the activities
-     * back to the main activity and will update the UI to match latest changes.
+     * This method creates a list to hold all the information about the saved medicine of the
+     * singleton list and then saves the newly created list to a string that uses the gson
+     * library. This string is then put into the sharedPreferences and committed.
      */
-    @Override
-    public void onResume(){
-        super.onResume();
-        setAdapter(newMedList);
-    }
-
-    /**
-     * Upon closing the app, this method will create a new list.
-     * The saved medicine list from the singleton will be stored in this new list
-     * and saved to a gson file that will be saved to sharedPreferences.
-     */
-    @Override
-    public void onStop(){
-        super.onStop();
+    public void SaveMedicineSharedPreferences(){
         List<Medicine> medicineList = new ArrayList<Medicine>();
         medicineList = SavedMedicine.getInstance().getMedicine();
         String jsonMedicine = gson.toJson(medicineList);
@@ -259,5 +234,36 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor prefEditor = prefPut.edit();
         prefEditor.putString("medData", jsonMedicine);
         prefEditor.commit();
+    }
+
+    /**
+     * This method is called when the user returns from any of the activities
+     * back to the main activity and will update the UI to match latest changes.
+     *
+     * This method also saves the medicine to the sharedPreferences.
+     */
+    @Override
+    public void onResume(){
+        super.onResume();
+        SaveMedicineSharedPreferences();
+        setAdapter(newMedList);
+    }
+
+    /**
+     * Upon closing the app, this method will save the medicine to the sharedPreferences.
+     */
+    @Override
+    public void onStop(){
+        super.onStop();
+        SaveMedicineSharedPreferences();
+    }
+
+    /**
+     * Also upon destroying the application the saved medicine will be saved to the sharedPreferences.
+     */
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        SaveMedicineSharedPreferences();
     }
 }

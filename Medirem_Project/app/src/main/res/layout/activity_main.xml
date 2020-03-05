@@ -6,27 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/header"
-        android:layout_width="228dp"
-        android:layout_height="57dp"
-        android:fontFamily="serif-monospace"
-        android:gravity="center|center_horizontal|center_vertical"
-        android:text="MediRem"
-        android:textColor="#720202"
-        android:textSize="36sp"
-        app:layout_constraintBottom_toTopOf="@+id/calendarView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
 
     <CalendarView
         android:id="@+id/calendarView"
-        android:layout_width="353dp"
-        android:layout_height="302dp"
+        android:layout_width="354dp"
+        android:layout_height="349dp"
+        android:layout_marginTop="50dp"
         android:focusedMonthDateColor="#F7F3E9E9"
         android:onClick="addMedicine"
         android:outlineAmbientShadowColor="#005F1D1D"
@@ -37,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button"
@@ -58,7 +43,6 @@
         android:id="@+id/listOfMedicine"
         android:layout_width="wrap_content"
         android:layout_height="140dp"
-        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,4 +60,13 @@
         app:layout_constraintTop_toBottomOf="@+id/listOfMedicine"
         app:layout_constraintVertical_bias="0.04000002"
         app:srcCompat="@drawable/chill_pill" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="383dp"
+        android:layout_height="91dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mediremheader" />
 </androidx.constraintlayout.widget.ConstraintLayout>
