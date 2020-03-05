@@ -33,12 +33,12 @@ import java.util.Locale;
 /**
  * MainActivity holds the calendar and the main functions of this app
  * @author Eric Keränen & Salla Mikkonen
- * @version 1.1 2/2020
+ * @version 1.5 2/2020
 */
 public class MainActivity extends AppCompatActivity {
 
     // Git Version
-    // TODO: GET CALENDAR TO WORK
+    // TODO: GET NOTIFICATIONS WORKING (POP-UP AND MAYBE SOUND)
     public  static  final String EXTRA_MAIN = "Main Activity Value";
 
     private ListView listOfMed;
@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         listOfMed = findViewById(R.id.listOfMedicine);
         c = findViewById(R.id.calendarView);
         newMedList = new ArrayList<Medicine>();
-        String selectedDate = DateFormat.getDateInstance(DateFormat.FULL).format(c.getDate());
 
         /**
          * Gson file to store the medicine information
@@ -69,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
         setAdapter(newMedList);
 
         /**
-         * For the adapter we also set up an onItemClickListener to see which element the user
+         * An onItemClickListener is set up for the adapter to see which element the user
          * clicks and sends an intent to the MedicineDetailsActivity with an int which will display the
-         * correct details.
+         * correct details. The index is fiddled with because we need the original lists index.
          */
         listOfMed.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -84,7 +83,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        /**
+         * An onDateChangeListener is set up for the calendar view to see which element of the calendar
+         * the user clicks. The onSelectedDayChange method creates a date (String) that is used to
+         * identify which day it is in the code. If the application is used on an operating system
+         * in english, the date format is formatted to a similar format that the date picker
+         * gives in the AddMedicineActivity. If the application is used on an operating system in finnish,
+         * the date is given as a number so we don't need the formatting.
+         *
+         * After formatting accordingly a new list is made to host temporary elements from the main list
+         * which is located in the singleton class SavedMedicine. Before inserting new elements in the
+         * temporary list it is cleared not to reset it. After resetting only the medicine are added
+         * to the list that have the same date as the currently selected day from the calendar. This
+         * way get the effect that only the medicine added to a certain date are displayed in the list.
+         */
         c.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -98,12 +110,14 @@ public class MainActivity extends AppCompatActivity {
                 }
                 SimpleDateFormat timeFormat = new SimpleDateFormat("MMM d, yyyy");
                 String finalCurDate = timeFormat.format(myDate);
+
                 Log.d("LOG", "onDateClick(" + dayOfMonth + "." + (month + 1) + "." + year + ")");
                 Log.d("LOG", "onDateClick in format is " + finalCurDate);
+
                 newMedList.clear();
                 for (int i = 0; i < SavedMedicine.getInstance().getMedicine().size(); i++) {
                     // IN EMULATOR USE finalCurDate AND IN PHONE (FI) USE currentDate
-                    if (currentDate.equals(SavedMedicine.getInstance().getMedicine(i).getDate())) {
+                    if (finalCurDate.equals(SavedMedicine.getInstance().getMedicine(i).getDate())) {
                         Log.d("LOG", "Current date and Medicine [" + i + "] matches!!! The match is  " + SavedMedicine.getInstance().getMedicine(i).getDate());
                         newMedList.add(SavedMedicine.getInstance().getMedicine(i));
                     }
@@ -137,9 +151,8 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
-    // TODO: SAVE THE MEDICINE TO A TIME
     /**
-     * This method fetches the result from the AddMedicineActivity.
+     * This method fetches the result from the AddMedicineActivity and MedicineDetailsActivity.
      * @param requestCode the code that is used to request the activity (int)
      * @param resultCode the code that is given in the setResult in the other activity (int)
      * @param data the data which is passed to the mainActivity from the other activity (Intent)
@@ -170,7 +183,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method sets the adapter so that the list will update
+     * This method sets the adapter so that the list will update. A temporary list used rather than
+     * the actual list to host elements from the singleton temporarily depending on the selected day.
      */
     public void setAdapter(ArrayList<Medicine> theList){
         adapter = new ArrayAdapter<Medicine>(
@@ -191,16 +205,10 @@ public class MainActivity extends AppCompatActivity {
         setAdapter(newMedList);
     }
 
-    @Override
-    public void onStart(){
-        super.onStart();
-        setAdapter(newMedList);
-    }
-
     /**
      * Upon closing the app, this method will create a new list.
      * The saved medicine list from the singleton will be stored in this new list
-     * and be saved to a gson file that will be saved to sharedPreferences.
+     * and saved to a gson file that will be saved to sharedPreferences.
      */
     @Override
     public void onStop(){
