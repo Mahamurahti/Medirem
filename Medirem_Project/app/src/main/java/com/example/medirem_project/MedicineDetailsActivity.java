@@ -64,7 +64,7 @@ public class MedicineDetailsActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Removing medicine");
         builder.setMessage("Do you want to remove " + SavedMedicine.getInstance().getMedicine(i).getName() + "?");
-        builder.setIcon(R.drawable.chill_pill);
+        builder.setIcon(R.drawable.chillpill_minus);
         builder.setPositiveButton("Remove", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();

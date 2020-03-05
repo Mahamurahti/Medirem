@@ -36,7 +36,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     // Git Version
-    // TODO: GET CALENDAR TO WORK
+    // TODO: GET NOTIFICATIONS WORKING (POP-UP AND MAYBE SOUND)
     public  static  final String EXTRA_MAIN = "Main Activity Value";
 
     private ListView listOfMed;
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 newMedList.clear();
                 for (int i = 0; i < SavedMedicine.getInstance().getMedicine().size(); i++) {
                     // IN EMULATOR USE finalCurDate AND IN PHONE (FI) USE currentDate
-                    if (currentDate.equals(SavedMedicine.getInstance().getMedicine(i).getDate())) {
+                    if (finalCurDate.equals(SavedMedicine.getInstance().getMedicine(i).getDate())) {
                         Log.d("LOG", "Current date and Medicine [" + i + "] matches!!! The match is  " + SavedMedicine.getInstance().getMedicine(i).getDate());
                         newMedList.add(SavedMedicine.getInstance().getMedicine(i));
                     }
