@@ -173,4 +173,31 @@
         app:layout_constraintVertical_bias="0.24000001"
         app:srcCompat="@drawable/clock_copy2" />
 
+    <RadioGroup
+        android:layout_width="154dp"
+        android:layout_height="70dp"
+        android:baselineAligned="true"
+        android:onClick="radioButton"
+        app:layout_constraintBottom_toBottomOf="@+id/openDatePicker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.556"
+        app:layout_constraintStart_toEndOf="@+id/openDatePicker"
+        app:layout_constraintTop_toTopOf="@+id/openDatePicker">
+
+        <RadioButton
+            android:id="@+id/noRepeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:onClick="radioButton"
+            android:text="Do not repeat" />
+
+        <RadioButton
+            android:id="@+id/yesRepeat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="radioButton"
+            android:text="Repeat for a week" />
+    </RadioGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

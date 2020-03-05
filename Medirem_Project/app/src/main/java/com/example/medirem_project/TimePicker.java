@@ -12,7 +12,8 @@ import androidx.fragment.app.DialogFragment;
 import java.util.Calendar;
 
 /**
- * SallaDoc
+ * Opens a clock where you can choose a time
+ * https://www.youtube.com/watch?v=QMwaNN_aM3U
  * @author Salla Mikkonen
  * @version 1.1 3/2020
  */
