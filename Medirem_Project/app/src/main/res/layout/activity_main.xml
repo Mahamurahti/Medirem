@@ -9,9 +9,9 @@
 
     <CalendarView
         android:id="@+id/calendarView"
-        android:layout_width="354dp"
-        android:layout_height="349dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="357dp"
+        android:layout_height="343dp"
+        android:layout_marginTop="35dp"
         android:focusedMonthDateColor="#F7F3E9E9"
         android:onClick="addMedicine"
         android:outlineAmbientShadowColor="#005F1D1D"
@@ -63,8 +63,8 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="383dp"
-        android:layout_height="91dp"
+        android:layout_width="401dp"
+        android:layout_height="79dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
