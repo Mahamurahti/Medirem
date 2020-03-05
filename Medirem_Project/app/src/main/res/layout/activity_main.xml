@@ -6,23 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:onClick="addMedicine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/header"
         android:layout_width="228dp"
         android:layout_height="57dp"
+        android:fontFamily="serif-monospace"
         android:gravity="center|center_horizontal|center_vertical"
-        android:text="Medirem"
+        android:text="MediRem"
+        android:textColor="#720202"
         android:textSize="36sp"
         app:layout_constraintBottom_toTopOf="@+id/calendarView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,6 +21,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="43dp"
+        android:focusedMonthDateColor="#F7F3E9E9"
+        android:onClick="addMedicine"
+        android:outlineAmbientShadowColor="#005F1D1D"
+        android:outlineSpotShadowColor="#00EEE6E6"
+        android:selectedWeekBackgroundColor="#00F0EFEB"
+        android:splitMotionEvents="false"
+        android:unfocusedMonthDateColor="#006D3232"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+
 
     <Button
         android:id="@+id/button"

@@ -7,11 +7,13 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import android.app.Activity;
+import android.app.usage.UsageEvents;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.EventLog;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 2);
             }
         });
+
 
         c.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
