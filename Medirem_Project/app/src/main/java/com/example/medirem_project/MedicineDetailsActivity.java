@@ -39,6 +39,7 @@ public class MedicineDetailsActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.medicineDesc)).setText(SavedMedicine.getInstance().getMedicine(i).getDesc());
         ((TextView)findViewById(R.id.medicineDate)).setText(SavedMedicine.getInstance().getMedicine(i).getDate());
         ((TextView)findViewById(R.id.medicineTime)).setText(SavedMedicine.getInstance().getMedicine(i).getTime());
+        ((TextView)findViewById(R.id.isTheMedTaken)).setText(SavedMedicine.getInstance().getMedicine(i).isMedTaken());
     }
 
     /**

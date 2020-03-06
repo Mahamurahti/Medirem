@@ -9,6 +9,7 @@ package com.example.medirem_project;
 public class Medicine {
 
     private String name, desc, date, time;
+    private boolean medTaken;
 
     /**
      * Constructor for Medicine class
@@ -22,6 +23,7 @@ public class Medicine {
         this.desc = desc;
         this.date = date;
         this.time = time;
+        this.medTaken = false;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class Medicine {
 
     /**
      * Method returns medicine name
-     * @return medicine name
+     * @return medicine name (String)
      */
     public String getName(){
         return this.name;
@@ -39,7 +41,7 @@ public class Medicine {
 
     /**
      * Method returns medicine description
-     * @return description
+     * @return description (String)
      */
     public String getDesc(){
         return this.desc;
@@ -47,7 +49,7 @@ public class Medicine {
 
     /**
      * Method returns medicine date
-     * @return the date where the medicine is saved
+     * @return the date where the medicine is saved (String)
      */
     public String getDate(){
         return this.date;
@@ -55,9 +57,28 @@ public class Medicine {
 
     /**
      * Method returns medicine time
-     * @return the time where the medicine is saved
+     * @return the time where the medicine is saved (String)
      */
     public String getTime(){
         return this.time;
+    }
+
+    /**
+     * Method for setting the medicine to a taken state
+     */
+    public void takeMed(){
+        medTaken = true;
+    }
+
+    /**
+     * Method for knowing is the medicine taken
+     * @return a text that tells you if the medicine is taken (String)
+     */
+    public String isMedTaken(){
+        if(medTaken){
+            return "Medicine has been taken";
+        }else{
+            return "Medicine has not been taken";
+        }
     }
 }
