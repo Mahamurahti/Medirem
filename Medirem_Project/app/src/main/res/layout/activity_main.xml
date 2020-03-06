@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00EB7171"
+    android:backgroundTint="@color/colorPrimary"
     tools:context=".MainActivity">
 
 
@@ -12,16 +14,18 @@
         style="@android:style/Widget.DeviceDefault.CalendarView"
         android:layout_width="357dp"
         android:layout_height="343dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="52dp"
+        android:background="#0FC74C27"
+        android:fadingEdge="none"
         android:focusedMonthDateColor="#F7F3E9E9"
         android:onClick="addMedicine"
         android:outlineAmbientShadowColor="#005F1D1D"
         android:outlineSpotShadowColor="#00EEE6E6"
+        android:requiresFadingEdge="horizontal|vertical"
         android:selectedWeekBackgroundColor="#00F0EFEB"
         android:splitMotionEvents="false"
         android:unfocusedMonthDateColor="#006D3232"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,9 +34,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#00F60505"
+        android:fontFamily="sans-serif-condensed-medium"
         android:onClick="addMedicine"
         android:text="Add Medicine"
-        android:textColor="#A4F81111"
+        android:textColor="#ABC74C27"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.56"
@@ -42,13 +47,21 @@
 
     <ListView
         android:id="@+id/listOfMedicine"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Light.ListView.DropDown"
+        android:layout_width="330dp"
         android:layout_height="140dp"
+        android:divider="?attr/actionBarDivider"
+        android:footerDividersEnabled="false"
+        android:foregroundGravity="center"
+        android:scrollbars="horizontal"
+        android:textAlignment="center"
+        android:textFilterEnabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.357" />
 
     <ImageView
         android:id="@+id/imageView2"
