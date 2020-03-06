@@ -137,4 +137,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
         app:layout_constraintVertical_bias="0.3" />
+
+    <Button
+        android:id="@+id/takeMedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00F60505"
+        android:onClick="takeMedicineButton"
+        android:text="Take medicine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.097"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="0.545" />
 </androidx.constraintlayout.widget.ConstraintLayout>

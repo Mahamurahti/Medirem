@@ -3,9 +3,11 @@ package com.example.medirem_project;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 
+import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.DatePicker;
 import android.os.Bundle;
@@ -134,52 +136,80 @@ public class AddMedicineActivity extends AppCompatActivity
 
     /**
      * When the user presses the add button, the Strings in the editText and textView
-     * fields will be saved into the list via saveMedicine method in the Singleton.
-     * The medicine will be saved in two ways: repeating or no repeating.
+     * fields will be saved into the singleton list via saveMedicine method.
+     * The medicine will be saved in two ways: repeating (seven times) or no repeating.
+     * If the user has not inputted any date or name for the medicine, the medicine will not save
+     * and prompt a pop-up message stating that there must be a date and a name for the medicine.
      * After adding the medicine this activity will end.
      * @param v used for finding something in the screen view (View)
      */
     public void addButton(View v){
-        if(!repeat){
-            EditText etMed = (EditText) findViewById(R.id.nameTheMed);
-            EditText etDesc = (EditText) findViewById(R.id.nameTheDesc);
-            TextView tvDate = (TextView) findViewById(R.id.dateView);
-            TextView tvTime = (TextView) findViewById(R.id.timeView);
-            String medName = etMed.getText().toString();
-            String medDesc = etDesc.getText().toString();
-            String medDate = tvDate.getText().toString();
-            String medTime = tvTime.getText().toString();
-            SavedMedicine.getInstance().saveMedicine(medName, medDesc, medDate, medTime);
-            setResult(1);
-            finish();
-        }else if(repeat){
-            EditText etMed = (EditText) findViewById(R.id.nameTheMed);
-            EditText etDesc = (EditText) findViewById(R.id.nameTheDesc);
-            TextView tvDate = (TextView) findViewById(R.id.dateView);
-            TextView tvTime = (TextView) findViewById(R.id.timeView);
+        EditText etMed = (EditText) findViewById(R.id.nameTheMed);
+        String medName = etMed.getText().toString();
+        EditText etDesc = (EditText) findViewById(R.id.nameTheDesc);
+        String medDesc = etDesc.getText().toString();
+        TextView tvDate = (TextView) findViewById(R.id.dateView);
+        String medDate = tvDate.getText().toString();
+        TextView tvTime = (TextView) findViewById(R.id.timeView);
+        String medTime = tvTime.getText().toString();
 
-            for(int i = 0; i <= 6; i++){
-                String medName = etMed.getText().toString();
-                String medDesc = etDesc.getText().toString();
-
-                String oldMedDate = tvDate.getText().toString();
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d.M.yyyy");
-                Calendar c = Calendar.getInstance();
-                try{
-                    c.setTime(simpleDateFormat.parse(oldMedDate));
-                }catch(ParseException e){
-                    e.printStackTrace();
+        if(medName.isEmpty()){
+            /**
+             * See "removeButton" method in medicine details activity to know how the alert dialog is built.
+             */
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Please add a name");
+            builder.setMessage("If you want to add a medicine you need to specify a name for it.");
+            builder.setIcon(R.drawable.chillpilllogoround);
+            builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
                 }
-                c.add(Calendar.DAY_OF_MONTH, i);
-                String newMedDate = simpleDateFormat.format(c.getTime());
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }else if(medDate.isEmpty()){
+            /**
+             * See "removeButton" method in medicine details activity to know how the alert dialog is built.
+             */
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Please add a date");
+            builder.setMessage("If you want to add a medicine you need to specify a date for it.");
+            builder.setIcon(R.drawable.chillpilllogoround);
+            builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }else{
+            if(!repeat){
+                SavedMedicine.getInstance().saveMedicine(medName, medDesc, medDate, medTime);
+                setResult(1);
+                finish();
+            }else if(repeat){
+                for(int i = 0; i <= 6; i++){
 
-                String medTime = tvTime.getText().toString();
+                    // ======== INCREMENT DAY BY ONE EVERY LOOP ======== //
+                    String oldMedDate = tvDate.getText().toString();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d.M.yyyy");
+                    Calendar c = Calendar.getInstance();
+                    try{
+                        c.setTime(simpleDateFormat.parse(oldMedDate));
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    }
+                    c.add(Calendar.DAY_OF_MONTH, i);
+                    String newMedDate = simpleDateFormat.format(c.getTime());
+                    Log.d("LOG", "newMedDate is " + newMedDate);
+                    // ================================================= //
 
-                Log.d("LOG", "newMedDate is " + newMedDate);
-                SavedMedicine.getInstance().saveMedicine(medName, medDesc, newMedDate, medTime);
+                    SavedMedicine.getInstance().saveMedicine(medName, medDesc, newMedDate, medTime);
+                }
+                setResult(2);
+                finish();
             }
-            setResult(2);
-            finish();
         }
     }
 

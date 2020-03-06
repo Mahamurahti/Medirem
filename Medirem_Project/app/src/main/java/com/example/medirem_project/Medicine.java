@@ -71,14 +71,26 @@ public class Medicine {
     }
 
     /**
-     * Method for knowing is the medicine taken
+     * Method for receiving the text about medicines state
      * @return a text that tells you if the medicine is taken (String)
      */
-    public String isMedTaken(){
+    public String medTakenText(){
         if(medTaken){
             return "Medicine has been taken";
         }else{
             return "Medicine has not been taken";
+        }
+    }
+
+    /**
+     * Method for knowing is the medicine taken
+     * @return returns true if the medicine has been taken and false if not (boolean)
+     */
+    public boolean isMedTaken(){
+        if(medTaken){
+            return true;
+        }else{
+            return false;
         }
     }
 }
