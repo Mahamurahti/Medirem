@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
     public void setAdapter(ArrayList<Medicine> theList){
         adapter = new ArrayAdapter<Medicine>(
                 this,
-                android.R.layout.simple_list_item_1,
+                R.layout.medicine_list_view,
                 theList
         );
         listOfMed.setAdapter(adapter);
