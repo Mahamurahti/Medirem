@@ -51,7 +51,7 @@
     <TextView
         android:id="@+id/medicineSaved"
         android:layout_width="378dp"
-        android:layout_height="47dp"
+        android:layout_height="30dp"
         android:layout_marginStart="30dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="Medicine saved to:"
@@ -67,7 +67,7 @@
     <TextView
         android:id="@+id/medicineDate"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:layout_marginStart="30dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:text="TextView"
@@ -110,7 +110,7 @@
     <TextView
         android:id="@+id/medicineTime"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:layout_marginStart="30dp"
         android:layout_marginTop="5dp"
         android:fontFamily="sans-serif-condensed-medium"
@@ -120,7 +120,8 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/medicineDate" />
+        app:layout_constraintTop_toBottomOf="@+id/medicineDate"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/medicineTaken"
