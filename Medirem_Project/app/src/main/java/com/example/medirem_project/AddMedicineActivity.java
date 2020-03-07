@@ -1,10 +1,14 @@
 package com.example.medirem_project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.TimePickerDialog;
 
 import android.content.DialogInterface;
@@ -22,6 +26,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import static com.example.medirem_project.App.CHANNEL_1_ID;
+
 /**
  * Add medicine activity adds custom medicine to the list which the user has to type in.
  * @author Eric Keränen & Salla Mikkonen
@@ -31,6 +37,7 @@ public class AddMedicineActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private boolean repeat;
+    private NotificationManagerCompat notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,7 @@ public class AddMedicineActivity extends AppCompatActivity
         setContentView(R.layout.activity_add_medicine);
 
         repeat = false;
+        notificationManager = NotificationManagerCompat.from(this);
 
         /**
          * Date button to open a calendar (DatePicker fragment) when the user presses the select date button.
@@ -186,6 +194,16 @@ public class AddMedicineActivity extends AppCompatActivity
         }else{
             if(!repeat){
                 SavedMedicine.getInstance().saveMedicine(medName, medDesc, medDate, medTime);
+
+                Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                        .setSmallIcon(R.drawable.chillpilllogoround)
+                        .setContentTitle("Remember to take your medicine!")
+                        .setContentText("You have set " + medName + " to this time.")
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .build();
+                notificationManager.notify(1, notification);
+
                 setResult(1);
                 finish();
             }else if(repeat){
