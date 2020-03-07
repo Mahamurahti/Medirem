@@ -49,8 +49,9 @@
     <ListView
         android:id="@+id/listOfMedicine"
         style="@style/Widget.AppCompat.Light.ListView.DropDown"
-        android:layout_width="330dp"
+        android:layout_width="310dp"
         android:layout_height="100dp"
+        android:background="#03FFFFFF"
         android:divider="?attr/actionBarDivider"
         android:footerDividersEnabled="false"
         android:foregroundGravity="center"
@@ -62,7 +63,7 @@
         app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView"
-        app:layout_constraintVertical_bias="0.19999999" />
+        app:layout_constraintVertical_bias="0.07999998" />
 
     <ImageView
         android:id="@+id/imageView2"
