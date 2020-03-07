@@ -23,7 +23,7 @@
     <TextView
         android:id="@+id/nameYourMedicine"
         android:layout_width="300dp"
-        android:layout_height="0dp"
+        android:layout_height="30dp"
         android:layout_marginTop="52dp"
         android:fontFamily="sans-serif-condensed-light"
         android:text="Name of you medicine"
@@ -56,7 +56,7 @@
         android:layout_marginTop="200dp"
         android:ems="10"
         android:fontFamily="sans-serif-condensed-medium"
-        android:hint="Description"
+        android:hint="Description (e.g. amount, condition)"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -197,15 +197,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
+            android:fontFamily="sans-serif-condensed-medium"
             android:onClick="radioButton"
-            android:text="Do not repeat" />
+            android:text="Do not repeat"
+            android:textColor="#8A4646" />
 
         <RadioButton
             android:id="@+id/yesRepeat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-condensed-medium"
             android:onClick="radioButton"
-            android:text="Repeat for a week" />
+            android:text="Repeat 7 days"
+            android:textColor="#8A4646" />
     </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

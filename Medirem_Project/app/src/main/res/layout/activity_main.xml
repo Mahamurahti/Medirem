@@ -39,6 +39,7 @@
         android:onClick="addMedicine"
         android:text="Add Medicine"
         android:textColor="#ABC74C27"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.56"
@@ -71,10 +72,10 @@
         android:layout_height="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintHorizontal_bias="0.96"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/listOfMedicine"
-        app:layout_constraintVertical_bias="0.100000024"
+        app:layout_constraintVertical_bias="0.13"
         app:srcCompat="@drawable/chill_pill" />
 
     <ImageView
