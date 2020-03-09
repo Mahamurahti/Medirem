@@ -29,6 +29,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -40,15 +41,16 @@ public class AddMedicineActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private boolean repeat;
-    //private NotificationManagerCompat notificationManager;
+    private int hour, minute, month, day, year;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medicine);
 
+        hour = 12;
+        minute = 0;
         repeat = false;
-        //notificationManager = NotificationManagerCompat.from(this);
 
         /**
          * Date button to open a calendar (DatePicker fragment) when the user presses the select date button.
@@ -78,27 +80,6 @@ public class AddMedicineActivity extends AppCompatActivity
     }
 
     /**
-     * This method saves the information that the user selects in the opened calendar.
-     * After picking a date it will be displayed in a text view.
-     *
-     * @param view used for finding something in the screen view (View)
-     * @param year is found from datePicker activity with Calendar.YEAR (int)
-     * @param month is found from datePicker activity with Calendar.MONTH (int)
-     * @param dayOfMonth is found from datePicker activity with Calendar.DAY_OF_MONTH (int)
-     */
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        String currentDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
-
-        TextView dateTextView = (TextView) findViewById(R.id.dateView);
-        dateTextView.setText(currentDateString);
-    }
-
-    /**
      * Radio buttons are used for selecting the repeat type, which are "Do not repeat" or "Repeat
      * for a week" , depending on which is selected the variable repeat (boolean) is changed
      * and when the add button is pressed the medicine will be saved in the way selected
@@ -124,6 +105,32 @@ public class AddMedicineActivity extends AppCompatActivity
     }
 
     /**
+     * This method saves the information that the user selects in the opened calendar.
+     * After picking a date it will be displayed in a text view.
+     *
+     * @param view used for finding something in the screen view (View)
+     * @param year is found from datePicker activity with Calendar.YEAR (int)
+     * @param month is found from datePicker activity with Calendar.MONTH (int)
+     * @param dayOfMonth is found from datePicker activity with Calendar.DAY_OF_MONTH (int)
+     */
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        String currentDateString = DateFormat.getDateInstance(DateFormat.MEDIUM).format(c.getTime());
+
+        TextView dateTextView = (TextView) findViewById(R.id.dateView);
+        dateTextView.setText(currentDateString);
+
+        this.month = month;
+        this.day = dayOfMonth;
+        this.year = year;
+    }
+
+
+    /**
      * This method saves the information that the user selects in the opened clock.
      * After picking the time it will be displayed in a text view. The displaying has
      * a small logic pool to add zeroes in front of numbers smaller than 10 (e.g. 8:1 -> 08:01).
@@ -143,11 +150,8 @@ public class AddMedicineActivity extends AppCompatActivity
         }else{
             tvTime.setText(hourOfDay + ":" + minute);
         }
-        Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-        c.set(Calendar.MINUTE, minute);
-        c.set(Calendar.SECOND, 0);
-        startAlarm(c);
+        this.hour = hourOfDay;
+        this.minute = minute;
     }
 
     /**
@@ -204,17 +208,16 @@ public class AddMedicineActivity extends AppCompatActivity
             if(!repeat){
                 SavedMedicine.getInstance().saveMedicine(medName, medDesc, medDate, medTime);
 
-                /*
-                Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
-                        .setSmallIcon(R.drawable.chillpilllogoround)
-                        .setContentTitle("Remember to take your medicine!")
-                        .setContentText("You have set " + medName + " to this time.")
-                        .setPriority(NotificationCompat.PRIORITY_HIGH)
-                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                        .build();
-                notificationManager.notify(1, notification);
-                */
+                Calendar c = Calendar.getInstance();
 
+                c.set(Calendar.YEAR, year);
+                c.set(Calendar.MONTH, month);
+                c.set(Calendar.DAY_OF_MONTH, day);
+                c.set(Calendar.HOUR_OF_DAY, hour);
+                c.set(Calendar.MINUTE, minute);
+                c.set(Calendar.SECOND, 0);
+
+                startAlarm(c);
 
                 setResult(1);
                 finish();
@@ -236,6 +239,14 @@ public class AddMedicineActivity extends AppCompatActivity
                     // ================================================= //
 
                     SavedMedicine.getInstance().saveMedicine(medName, medDesc, newMedDate, medTime);
+                    c.set(Calendar.YEAR, year);
+                    c.set(Calendar.MONTH, month);
+                    c.set(Calendar.DAY_OF_MONTH, day + i);
+                    c.set(Calendar.HOUR_OF_DAY, hour);
+                    c.set(Calendar.MINUTE, minute);
+                    c.set(Calendar.SECOND, 0);
+
+                    startAlarm(c);
                 }
                 setResult(2);
                 finish();
