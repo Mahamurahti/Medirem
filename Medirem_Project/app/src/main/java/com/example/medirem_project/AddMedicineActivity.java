@@ -34,7 +34,7 @@ import java.util.Date;
 
 /**
  * Add medicine activity adds custom medicine to the list which the user has to type in.
- * @author Eric Keränen & Salla Mikkonen
+ * @author Eric Keränen & Salla Mikkonen & Joonatan Pakkanen
  * @version 1.5 2/2020
  */
 public class AddMedicineActivity extends AppCompatActivity
@@ -134,6 +134,7 @@ public class AddMedicineActivity extends AppCompatActivity
      * This method saves the information that the user selects in the opened clock.
      * After picking the time it will be displayed in a text view. The displaying has
      * a small logic pool to add zeroes in front of numbers smaller than 10 (e.g. 8:1 -> 08:01).
+     * Chosen time is transferred to startAlarm method as c parameter.
      * @param view used for finding something in the screen view (View)
      * @param hourOfDay is found from timePicker activity with Calendar.HOUR_OF_DAY (int)
      * @param minute is found from timePicker activity with Calendar.Minute (int)
@@ -265,6 +266,11 @@ public class AddMedicineActivity extends AppCompatActivity
         setResult(0);
         finish();
     }
+
+    /**
+     *
+     * @param c
+     */
     private void startAlarm(Calendar c){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
@@ -273,6 +279,9 @@ public class AddMedicineActivity extends AppCompatActivity
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 
+    /**
+     * Cancels alarm
+     */
     private void cancelAlarm(){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
