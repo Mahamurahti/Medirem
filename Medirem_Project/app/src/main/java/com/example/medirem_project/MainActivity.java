@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -157,13 +158,17 @@ public class MainActivity extends AppCompatActivity {
             if(resultCode == 2){
                 // REPEAT
                 Log.d("LOG", "Result code was two! Repeat was turned on.");
+                SaveMedicineSharedPreferences();
                 RefreshList();
                 setAdapter(newMedList);
+                Toast.makeText(getApplicationContext(), "Added medicine for seven days successfully", Toast.LENGTH_SHORT).show();
             }else if(resultCode == 1){
                 // NO REPEAT
                 Log.d("LOG", "Result Code was one! Repeat was turned off.");
+                SaveMedicineSharedPreferences();
                 RefreshList();
                 setAdapter(newMedList);
+                Toast.makeText(getApplicationContext(), "Added medicine successfully", Toast.LENGTH_SHORT).show();
             }else if(resultCode == 0){
                 // BACK
                 Log.d("LOG", "Result Code was zero! Back was pressed.");
@@ -173,14 +178,24 @@ public class MainActivity extends AppCompatActivity {
         // MEDICINE DETAILS ACTIVITY
         if(requestCode == 2){
             Log.d("LOG", "Request Code was two!");
-            if(resultCode == 1){
-                // MEDICINE REMOVED
-                Log.d("LOG", "Result Code was one! Medicine was removed.");
+            if(resultCode == 2){
+                // MEDICINE TAKEN
+                Log.d("LOG", "Result Code was two! Medicine was taken.");
+                SaveMedicineSharedPreferences();
                 RefreshList();
                 setAdapter(newMedList);
+                Toast.makeText(getApplicationContext(), "Medicine taken successfully", Toast.LENGTH_SHORT).show();
+            }else if(resultCode == 1){
+                // MEDICINE REMOVED
+                Log.d("LOG", "Result Code was one! Medicine was removed.");
+                SaveMedicineSharedPreferences();
+                RefreshList();
+                setAdapter(newMedList);
+                Toast.makeText(getApplicationContext(), "Removed medicine successfully", Toast.LENGTH_SHORT).show();
             }else if(resultCode == 0) {
                 // BACK
                 Log.d("LOG", "Result Code was zero! Back was pressed.");
+                SaveMedicineSharedPreferences();
                 setAdapter(newMedList);
             }
         }

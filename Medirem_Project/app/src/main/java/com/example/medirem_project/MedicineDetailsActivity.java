@@ -88,6 +88,8 @@ public class MedicineDetailsActivity extends AppCompatActivity {
                 String currentTime = timeFormat.format(c.getTime());
                 ((TextView)findViewById(R.id.medTakenTime)).setText(currentTime);
                 SavedMedicine.getInstance().getMedicine(i).saveTime(currentTime);
+                setResult(2);
+                finish();
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
