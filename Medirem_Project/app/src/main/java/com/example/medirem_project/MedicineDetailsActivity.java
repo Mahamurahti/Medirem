@@ -60,6 +60,7 @@ public class MedicineDetailsActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.medicineDate)).setText(SavedMedicine.getInstance().getMedicine(i).getDate());
         ((TextView)findViewById(R.id.medicineTime)).setText(SavedMedicine.getInstance().getMedicine(i).getTime());
         ((TextView)findViewById(R.id.isTheMedTaken)).setText(SavedMedicine.getInstance().getMedicine(i).medTakenText());
+        ((TextView)findViewById(R.id.medTakenTime)).setText(SavedMedicine.getInstance().getMedicine(i).getTakenTime());
     }
 
     /**
@@ -86,6 +87,7 @@ public class MedicineDetailsActivity extends AppCompatActivity {
                 DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
                 String currentTime = timeFormat.format(c.getTime());
                 ((TextView)findViewById(R.id.medTakenTime)).setText(currentTime);
+                SavedMedicine.getInstance().getMedicine(i).saveTime(currentTime);
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

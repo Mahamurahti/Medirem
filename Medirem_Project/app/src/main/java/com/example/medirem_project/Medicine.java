@@ -8,7 +8,7 @@ package com.example.medirem_project;
  */
 public class Medicine {
 
-    private String name, desc, date, time;
+    private String name, desc, date, time, takenTime;
     private boolean medTaken;
 
     /**
@@ -24,6 +24,7 @@ public class Medicine {
         this.date = date;
         this.time = time;
         this.medTaken = false;
+        this.takenTime = " ";
     }
 
     @Override
@@ -92,5 +93,21 @@ public class Medicine {
         }else{
             return false;
         }
+    }
+
+    /**
+     * Method for saving the time that the user took the medicine
+     * @param takenTime is the time that the user took the medicine (String)
+     */
+    public void saveTime(String takenTime){
+        this.takenTime = takenTime;
+    }
+
+    /**
+     * Method for getting the time that the medicine has been taken
+     * @return time when medicine was taken (String)
+     */
+    public String getTakenTime(){
+        return this.takenTime;
     }
 }
