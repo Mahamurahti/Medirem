@@ -9,7 +9,7 @@ import androidx.core.app.NotificationCompat;
 public class AlertReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent){
         NotificationHelper notificationHelper = new NotificationHelper(context);
-        NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Title", "Message");
+        NotificationCompat.Builder nb = notificationHelper.getChannelNotification("Medicine Reminder", "Hey! Remember to take your medicine!");
         notificationHelper.getManager().notify(1, nb.build());
     }
 }
