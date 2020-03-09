@@ -5,13 +5,17 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.DatePicker;
 import android.os.Bundle;
@@ -26,7 +30,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import static com.example.medirem_project.App.CHANNEL_1_ID;
 
 /**
  * Add medicine activity adds custom medicine to the list which the user has to type in.
@@ -140,6 +143,11 @@ public class AddMedicineActivity extends AppCompatActivity
         }else{
             tvTime.setText(hourOfDay + ":" + minute);
         }
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND, 0);
+        startAlarm(c);
     }
 
     /**
@@ -160,6 +168,7 @@ public class AddMedicineActivity extends AppCompatActivity
         String medDate = tvDate.getText().toString();
         TextView tvTime = (TextView) findViewById(R.id.timeView);
         String medTime = tvTime.getText().toString();
+
 
         if(medName.isEmpty()){
             /**
@@ -205,7 +214,8 @@ public class AddMedicineActivity extends AppCompatActivity
                         .build();
                 notificationManager.notify(1, notification);
                 */
-                
+
+
                 setResult(1);
                 finish();
             }else if(repeat){
@@ -240,8 +250,23 @@ public class AddMedicineActivity extends AppCompatActivity
      */
     public  void  onBackPressed(View v){
         super.onBackPressed();
+        cancelAlarm();
         setResult(0);
         finish();
     }
+    private void startAlarm(Calendar c){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent,0);
 
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+    }
+
+    private void cancelAlarm(){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent,0);
+
+        alarmManager.cancel(pendingIntent);
+    }
 }
