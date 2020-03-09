@@ -208,7 +208,7 @@ public class AddMedicineActivity extends AppCompatActivity
         }else{
             if(!repeat){
                 SavedMedicine.getInstance().saveMedicine(medName, medDesc, medDate, medTime);
-
+                
                 Calendar c = Calendar.getInstance();
 
                 c.set(Calendar.YEAR, year);
