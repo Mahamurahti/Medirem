@@ -76,7 +76,7 @@ public class Medicine {
      */
     public String medTakenText(){
         if(medTaken){
-            return "Medicine has been taken";
+            return "Medicine has been taken at";
         }else{
             return "Medicine has not been taken";
         }

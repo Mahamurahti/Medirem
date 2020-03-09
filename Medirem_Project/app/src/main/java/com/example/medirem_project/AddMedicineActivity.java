@@ -211,15 +211,15 @@ public class AddMedicineActivity extends AppCompatActivity
 
                     // ======== INCREMENT DAY BY ONE EVERY LOOP ======== //
                     String oldMedDate = tvDate.getText().toString();
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d.M.yyyy");
+                    SimpleDateFormat oldToNewDate = new SimpleDateFormat("d.M.yyyy");
                     Calendar c = Calendar.getInstance();
                     try{
-                        c.setTime(simpleDateFormat.parse(oldMedDate));
+                        c.setTime(oldToNewDate.parse(oldMedDate));
                     }catch(ParseException e){
                         e.printStackTrace();
                     }
                     c.add(Calendar.DAY_OF_MONTH, i);
-                    String newMedDate = simpleDateFormat.format(c.getTime());
+                    String newMedDate = oldToNewDate.format(c.getTime());
                     Log.d("LOG", "newMedDate is " + newMedDate);
                     // ================================================= //
 

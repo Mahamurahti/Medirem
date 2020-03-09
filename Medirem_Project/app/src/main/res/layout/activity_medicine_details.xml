@@ -7,6 +7,22 @@
     tools:context=".MedicineDetailsActivity">
 
     <TextView
+        android:id="@+id/medTakenTime"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="TextView"
+        android:textColor="#B4CE5631"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="0.508" />
+
+    <TextView
         android:id="@+id/medicineName"
         android:layout_width="0dp"
         android:layout_height="60dp"

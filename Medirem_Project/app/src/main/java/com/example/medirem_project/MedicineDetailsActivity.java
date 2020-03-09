@@ -11,6 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * Medicine Details Activity shows the description of the clicked medicine
  * @author Eric Keränen
@@ -77,6 +82,10 @@ public class MedicineDetailsActivity extends AppCompatActivity {
                 SavedMedicine.getInstance().getMedicine(i).takeMed();
                 takeMedButton.setVisibility(View.GONE);
                 ((TextView)findViewById(R.id.isTheMedTaken)).setText(SavedMedicine.getInstance().getMedicine(i).medTakenText());
+                Calendar c = Calendar.getInstance();
+                DateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
+                String currentTime = timeFormat.format(c.getTime());
+                ((TextView)findViewById(R.id.medTakenTime)).setText(currentTime);
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
