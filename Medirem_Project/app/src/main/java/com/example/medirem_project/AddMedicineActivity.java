@@ -37,7 +37,7 @@ public class AddMedicineActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private boolean repeat;
-    private NotificationManagerCompat notificationManager;
+    //private NotificationManagerCompat notificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class AddMedicineActivity extends AppCompatActivity
         setContentView(R.layout.activity_add_medicine);
 
         repeat = false;
-        notificationManager = NotificationManagerCompat.from(this);
+        //notificationManager = NotificationManagerCompat.from(this);
 
         /**
          * Date button to open a calendar (DatePicker fragment) when the user presses the select date button.
@@ -195,6 +195,7 @@ public class AddMedicineActivity extends AppCompatActivity
             if(!repeat){
                 SavedMedicine.getInstance().saveMedicine(medName, medDesc, medDate, medTime);
 
+                /*
                 Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
                         .setSmallIcon(R.drawable.chillpilllogoround)
                         .setContentTitle("Remember to take your medicine!")
@@ -203,7 +204,8 @@ public class AddMedicineActivity extends AppCompatActivity
                         .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                         .build();
                 notificationManager.notify(1, notification);
-
+                */
+                
                 setResult(1);
                 finish();
             }else if(repeat){
