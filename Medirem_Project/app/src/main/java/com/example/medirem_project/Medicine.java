@@ -1,5 +1,7 @@
 package com.example.medirem_project;
 
+import java.util.Calendar;
+
 /**
  * Medicine class holds the information of medicine, like
  * the medicines name, description, date and time.

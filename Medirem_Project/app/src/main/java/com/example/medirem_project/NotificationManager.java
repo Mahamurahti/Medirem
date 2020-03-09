@@ -1,11 +1,21 @@
 package com.example.medirem_project;
 
+import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
 public class NotificationManager extends NotificationManager {
     public static final String CHANNEL_ID_1 = "Channel1";
+/**
+ * App is the class
+ * @author Joonatan Pakkanen
+ * @version 1.1 3/2020
+ */
+public class App extends Application {
+
+    public static final String CHANNEL_1_ID = "channel1";
+
 
     @Override
     public void onCreate(){

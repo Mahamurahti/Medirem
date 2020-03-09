@@ -3,8 +3,13 @@ package com.example.medirem_project;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+
+
+import android.content.DialogInterface;
+import android.content.Intent;
 
 import android.util.Log;
 import android.widget.DatePicker;
@@ -30,12 +35,16 @@ public class AddMedicineActivity extends AppCompatActivity
 
     private boolean repeat;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medicine);
 
         repeat = false;
+
+        //notificationManager = NotificationManagerCompat.from(this);
+
 
         /**
          * Date button to open a calendar (DatePicker fragment) when the user presses the select date button.
@@ -163,6 +172,7 @@ public class AddMedicineActivity extends AppCompatActivity
                 }catch(ParseException e){
                     e.printStackTrace();
                 }
+
                 c.add(Calendar.DAY_OF_MONTH, i);
                 String newMedDate = simpleDateFormat.format(c.getTime());
 
@@ -170,6 +180,66 @@ public class AddMedicineActivity extends AppCompatActivity
 
                 Log.d("LOG", "newMedDate is " + newMedDate);
                 SavedMedicine.getInstance().saveMedicine(medName, medDesc, newMedDate, medTime);
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }else if(medDate.isEmpty()){
+            /**
+             * See "removeButton" method in medicine details activity to know how the alert dialog is built.
+             */
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Please add a date");
+            builder.setMessage("If you want to add a medicine you need to specify a date for it.");
+            builder.setIcon(R.drawable.chillpilllogoround);
+            builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }else{
+            if(!repeat){
+                SavedMedicine.getInstance().saveMedicine(medName, medDesc, medDate, medTime);
+
+
+                /*
+                Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                        .setSmallIcon(R.drawable.chillpilllogoround)
+                        .setContentTitle("Remember to take your medicine!")
+                        .setContentText("You have set " + medName + " to this time.")
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                        .build();
+                notificationManager.notify(1, notification);
+                */
+
+
+
+                setResult(1);
+                finish();
+            }else if(repeat){
+                for(int i = 0; i <= 6; i++){
+
+                    // ======== INCREMENT DAY BY ONE EVERY LOOP ======== //
+                    String oldMedDate = tvDate.getText().toString();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d.M.yyyy");
+                    Calendar c = Calendar.getInstance();
+                    try{
+                        c.setTime(simpleDateFormat.parse(oldMedDate));
+                    }catch(ParseException e){
+                        e.printStackTrace();
+                    }
+                    c.add(Calendar.DAY_OF_MONTH, i);
+                    String newMedDate = simpleDateFormat.format(c.getTime());
+                    Log.d("LOG", "newMedDate is " + newMedDate);
+                    // ================================================= //
+
+                    SavedMedicine.getInstance().saveMedicine(medName, medDesc, newMedDate, medTime);
+                }
+                setResult(2);
+                finish();
+
             }
             setResult(2);
             finish();

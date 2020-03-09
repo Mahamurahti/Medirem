@@ -7,6 +7,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -175,6 +178,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("LOG", "Result Code was one! Repeat was turned off.");
                 RefreshList();
                 setAdapter(newMedList);
+                sendOnChannel1("Remember to take your medicine", "You have set " +
+                        SavedMedicine.getInstance().getMedicine(SavedMedicine.getInstance().getMedicine().lastIndexOf(
+                                SavedMedicine.getInstance().getMedicine())).getName() + "to this time.");
+                SimpleDateFormat formatToString = new SimpleDateFormat("hh:mm");
+                Calendar c = Calendar.getInstance();
+                String alarmTime = formatToString.format(SavedMedicine.getInstance().getMedicine(SavedMedicine.getInstance().getMedicine().lastIndexOf(SavedMedicine.getInstance().getMedicine())).getTime());
+                startAlarm();
             }else if(resultCode == 0){
                 // BACK
                 Log.d("LOG", "Result Code was zero! Back was pressed.");
@@ -259,5 +269,25 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor prefEditor = prefPut.edit();
         prefEditor.putString("medData", jsonMedicine);
         prefEditor.commit();
+    }
+
+    private void startAlarm(Calendar c){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent,0);
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+    }
+
+    private void cancelAlarm(){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent,0);
+
+        alarmManager.cancel(pendingIntent);
+    }
+
+    public void sendOnChannel1(String title, String message){
+
     }
 }
