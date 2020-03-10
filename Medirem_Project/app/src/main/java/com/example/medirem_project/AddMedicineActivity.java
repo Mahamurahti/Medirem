@@ -208,7 +208,6 @@ public class AddMedicineActivity extends AppCompatActivity
         }else{
             if(!repeat){
                 SavedMedicine.getInstance().saveMedicine(medName, medDesc, medDate, medTime);
-                
                 Calendar c = Calendar.getInstance();
 
                 c.set(Calendar.YEAR, year);
@@ -218,7 +217,7 @@ public class AddMedicineActivity extends AppCompatActivity
                 c.set(Calendar.MINUTE, minute);
                 c.set(Calendar.SECOND, 0);
 
-                startAlarm(c);
+                startAlarmOnce(c);
 
                 setResult(1);
                 finish();
@@ -240,15 +239,16 @@ public class AddMedicineActivity extends AppCompatActivity
                     // ================================================= //
 
                     SavedMedicine.getInstance().saveMedicine(medName, medDesc, newMedDate, medTime);
-                    c.set(Calendar.YEAR, year);
-                    c.set(Calendar.MONTH, month);
-                    c.set(Calendar.DAY_OF_MONTH, day + i);
-                    c.set(Calendar.HOUR_OF_DAY, hour);
-                    c.set(Calendar.MINUTE, minute);
-                    c.set(Calendar.SECOND, 0);
-
-                    startAlarm(c);
                 }
+                Calendar c = Calendar.getInstance();
+                c.set(Calendar.YEAR, year);
+                c.set(Calendar.MONTH, month);
+                c.set(Calendar.DAY_OF_MONTH, day);
+                c.set(Calendar.HOUR_OF_DAY, hour);
+                c.set(Calendar.MINUTE, minute);
+                c.set(Calendar.SECOND, 0);
+
+                startAlarmRepeating(c);
                 setResult(2);
                 finish();
             }
@@ -271,7 +271,15 @@ public class AddMedicineActivity extends AppCompatActivity
      *
      * @param c
      */
-    private void startAlarm(Calendar c){
+    private void startAlarmRepeating(Calendar c){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 2, intent,0);
+
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),24 * 60 * 60 * 1000, pendingIntent);
+    }
+
+    private void startAlarmOnce(Calendar c){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent,0);
