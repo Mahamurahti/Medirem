@@ -14,6 +14,7 @@ import androidx.core.app.NotificationCompat;
 /**
  * NotificationHelper is used to create and manage notification channels. It also constructs notifications.
  * NotificationHelper has ContextWrapper as its superclass.
+ * https://www.youtube.com/watch?v=ub4_f6ksxL0
  * @author Joonatan Pakkanen
  * @version 1.1 3/2020
  */

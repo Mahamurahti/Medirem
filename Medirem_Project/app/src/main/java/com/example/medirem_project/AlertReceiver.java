@@ -9,6 +9,7 @@ import androidx.core.app.NotificationCompat;
 /**
  * Alert Receiver class receives the alert information and passes it for the notification helper
  * class. In this class the information what the notifications holds is defined.
+ * https://www.youtube.com/watch?v=yrpimdBRk5Q&t=19s
  * @author Joonatan Pakkanen
  * @version 1.1 3/2020
  */
