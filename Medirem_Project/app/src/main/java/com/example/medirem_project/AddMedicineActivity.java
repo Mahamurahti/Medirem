@@ -278,6 +278,8 @@ public class AddMedicineActivity extends AppCompatActivity
     }
 
     /**
+     *Starts repeating alarm
+     * @param c
      * This method will call for the alarm manager and create a pending intent, that will be fire off
      * when the time is right. This alarm will repeat itself after the first alarm on a eight hour interval.
      * @param c takes in a date and a time when the alarm should fire (Calendar)
@@ -291,6 +293,8 @@ public class AddMedicineActivity extends AppCompatActivity
     }
 
     /**
+     * Starts alarm
+     * @param c
      * This method will call for the alarm manager and create a pending intent, that will be fire off
      * when the time is right. This alarm will not repeat itself after the first alarm.
      * @param c takes in a date and a time when the alarm should fire (Calendar)
