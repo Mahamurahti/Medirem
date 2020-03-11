@@ -7,7 +7,7 @@ import android.content.Intent;
 import androidx.core.app.NotificationCompat;
 
 /**
- * Joonatan kirjota
+ * Alertreceiver
  * @author Joonatan Pakkanen
  * @version 1.1 3/2020
  */
