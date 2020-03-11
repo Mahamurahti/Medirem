@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--@author Eric Keränen, Salla Mikkonen, Joonatan Pakkanen -->
 <TextView
     android:textSize="33dp"
     android:textColor="#FF8A2925"
