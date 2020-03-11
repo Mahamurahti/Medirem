@@ -13,6 +13,7 @@ public class SavedMedicine {
     private static final SavedMedicine ourInstance = new SavedMedicine();
 
     private ArrayList<Medicine> medicineList;
+    private int i;
 
     /**
      * Method for getting the instance of the singleton
@@ -28,6 +29,7 @@ public class SavedMedicine {
      */
     private SavedMedicine() {
         medicineList = new ArrayList<Medicine>();
+        i = 10;
     }
 
     /**
@@ -74,4 +76,10 @@ public class SavedMedicine {
         medicineList = list;
     }
 
+    /**
+     * Method for removing all medicine from the singleton list
+     */
+    public void removeAllMedicine(){
+        medicineList.clear();
+    }
 }

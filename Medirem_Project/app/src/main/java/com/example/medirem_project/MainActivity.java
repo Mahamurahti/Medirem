@@ -8,6 +8,11 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,8 +23,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -33,7 +40,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     // Git Version
-    // TODO: GET NOTIFICATIONS WORKING (POP-UP AND MAYBE SOUND)
     public  static  final String EXTRA_MAIN = "Main Activity Value";
 
     private ListView listOfMed;
@@ -145,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method fetches the result from the AddMedicineActivity and MedicineDetailsActivity.
+     * After the user has returned from an activity a toast will display what updates were made.
      * @param requestCode the code that is used to request the activity (int)
      * @param resultCode the code that is given in the setResult in the other activity (int)
      * @param data the data which is passed to the mainActivity from the other activity (Intent)
@@ -250,6 +257,35 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor prefEditor = prefPut.edit();
         prefEditor.putString("medData", jsonMedicine);
         prefEditor.commit();
+    }
+
+    public void nuclearButton(View v){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Causing a nuclear apocalypse");
+        builder.setMessage("Are you sure you want to delete all medicine and clear all alarms?");
+        builder.setIcon(R.drawable.chillpilllogoround);
+        builder.setPositiveButton("Yeah, go for it", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+                SavedMedicine.getInstance().removeAllMedicine();
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+                Intent updateServiceIntent = new Intent(MainActivity.this, AlertReceiver.class);
+                PendingIntent pendingUpdateIntent = PendingIntent.getService(MainActivity.this, 0, updateServiceIntent, 0);
+                try {
+                    alarmManager.cancel(pendingUpdateIntent);
+                } catch (Exception e) {
+                    Log.e("LOG", "AlarmManager update was not canceled. " + e.toString());
+                }
+            }
+        });
+        builder.setNegativeButton("Hell naw", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     /**
