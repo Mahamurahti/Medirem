@@ -19,7 +19,7 @@ import java.util.Date;
 /**
  * Medicine Details Activity shows the description of the clicked medicine
  * @author Eric Keränen
- * @version 1.3 2/2020
+ * @version 1.4 2/2020
  */
 public class MedicineDetailsActivity extends AppCompatActivity {
 
@@ -29,7 +29,7 @@ public class MedicineDetailsActivity extends AppCompatActivity {
     /**
      * During onCreate in this activity, the intent from clicking an element
      * in the main activity gets transferred into here and set to textViews
-     * @param savedInstanceState a reference to a bundle object
+     * @param savedInstanceState a reference to a bundle object (Bundle)
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {

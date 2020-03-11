@@ -43,6 +43,9 @@ public class AddMedicineActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medicine);
 
+        /**
+         * If no time is set, 12:00 will be the default time for notifications
+         */
         this.hour = 12;
         this.minute = 0;
         this.repeat = false;
@@ -102,7 +105,6 @@ public class AddMedicineActivity extends AppCompatActivity
     /**
      * This method saves the information that the user selects in the opened calendar.
      * After picking a date it will be displayed in a text view and saved to some variables.
-     *
      * @param view used for finding something in the screen view (View)
      * @param year is found from datePicker activity with Calendar.YEAR (int)
      * @param month is found from datePicker activity with Calendar.MONTH (int)
@@ -123,7 +125,6 @@ public class AddMedicineActivity extends AppCompatActivity
         this.day = dayOfMonth;
         this.year = year;
     }
-
 
     /**
      * This method saves the information that the user selects in the opened clock.
@@ -201,6 +202,10 @@ public class AddMedicineActivity extends AppCompatActivity
             AlertDialog alert = builder.create();
             alert.show();
         }else{
+            /**
+             * If repeat is off, save medicine and notification once.
+             * If repeat is on, save medicine and notification seven times.
+             */
             if(!repeat){
                 SavedMedicine.getInstance().saveMedicine(medName, medDesc, medDate, medTime);
                 Calendar c = Calendar.getInstance();
@@ -223,20 +228,7 @@ public class AddMedicineActivity extends AppCompatActivity
             }else if(repeat){
                 Calendar c = Calendar.getInstance();
 
-                /**
-                 * Saved variables from onDateSet and onTimeSet will be set to an alarm here.
-                 * This alarm will be first set to the day that is selected and in the for loop
-                 * the alarm will be set to the next six days in addition to the first.
-                 */
-                c.set(Calendar.DAY_OF_MONTH, day);
-                c.set(Calendar.YEAR, year);
-                c.set(Calendar.MONTH, month);
-                c.set(Calendar.HOUR_OF_DAY, hour);
-                c.set(Calendar.MINUTE, minute);
-                c.set(Calendar.SECOND, 0);
-
                 for(int i = 0; i <= 6; i++){
-
                     // ======== INCREMENT DAY BY ONE EVERY LOOP ======== //
                     String oldMedDate = tvDate.getText().toString();
                     SimpleDateFormat oldToNewDate = new SimpleDateFormat("d.M.yyyy");
@@ -245,6 +237,7 @@ public class AddMedicineActivity extends AppCompatActivity
                     }catch(ParseException e){
                         e.printStackTrace();
                     }
+                    c.set(Calendar.DAY_OF_MONTH, day);
                     c.add(Calendar.DAY_OF_MONTH, i);
                     String newMedDate = oldToNewDate.format(c.getTime());
                     Log.d("LOG", "newMedDate is " + newMedDate);
@@ -252,7 +245,18 @@ public class AddMedicineActivity extends AppCompatActivity
 
                     SavedMedicine.getInstance().saveMedicine(medName, medDesc, newMedDate, medTime);
 
-                    startAlarm(c);
+                    /**
+                     * Saved variables from onDateSet and onTimeSet will be set to an alarm here.
+                     * This alarm will be first set to the day that is selected and in the for loop
+                     * the alarm will be set to the next six days in addition to the first.
+                     */
+                    c.set(Calendar.YEAR, year);
+                    c.set(Calendar.MONTH, month);
+                    c.set(Calendar.HOUR_OF_DAY, hour);
+                    c.set(Calendar.MINUTE, minute);
+                    c.set(Calendar.SECOND, 0);
+
+                    startAlarmRepeat(c);
                 }
 
                 setResult(2);
@@ -263,7 +267,8 @@ public class AddMedicineActivity extends AppCompatActivity
 
     /**
      * This method will call for the alarm manager and create a pending intent, that will be fire off
-     * when the time is right. This alarm will not repeat itself after the first alarm.
+     * when the time is right. The time is exactly the times the user has set for the medicine.
+     * Used for setting one alarm.
      * @param c takes in a date and a time when the alarm should fire (Calendar)
      */
     private void startAlarm(Calendar c){
@@ -275,12 +280,26 @@ public class AddMedicineActivity extends AppCompatActivity
     }
 
     /**
-     * This method cancel the pending intent and therefore cancels the alarm.
+     * This method will call for the alarm manager and create a pending intent, that will be fire off
+     * when the time is right. The time is exactly the times the user has set for the medicine.
+     * Used for setting multiple alarms.
+     * @param c takes in a date and a time when the alarm should fire (Calendar)
+     */
+    private void startAlarmRepeat(Calendar c){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int)System.currentTimeMillis(), intent,0);
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+    }
+
+    /**
+     * This method cancels the pending intent and therefore cancels the alarm.
      */
     private void cancelAlarm(){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent,0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int)System.currentTimeMillis(), intent,0);
 
         alarmManager.cancel(pendingIntent);
     }

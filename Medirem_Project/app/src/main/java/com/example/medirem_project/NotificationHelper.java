@@ -24,8 +24,8 @@ public class NotificationHelper extends ContextWrapper {
     private NotificationManager mManager;
 
     /**
-     *
-     * @param base
+     * Constructor for Notification Helper. Also creates the channel.
+     * @param base is the context which needs to be transferred to the superclass (Context)
      */
     public NotificationHelper(Context base){
         super(base);
