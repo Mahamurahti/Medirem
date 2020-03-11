@@ -1,15 +1,11 @@
 package com.example.medirem_project;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Notification;
-import android.app.NotificationChannel;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 
@@ -29,13 +25,12 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 
 /**
  * Add medicine activity adds custom medicine to the list which the user has to type in.
  * @author Eric Keränen & Salla Mikkonen & Joonatan Pakkanen
- * @version 1.7 2/2020
+ * @version 1.8 2/2020
  */
 public class AddMedicineActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -48,9 +43,9 @@ public class AddMedicineActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_medicine);
 
-        hour = 12;
-        minute = 0;
-        repeat = false;
+        this.hour = 12;
+        this.minute = 0;
+        this.repeat = false;
 
         /**
          * Date button to open a calendar (DatePicker fragment) when the user presses the select date button.
@@ -175,7 +170,6 @@ public class AddMedicineActivity extends AppCompatActivity
         TextView tvTime = (TextView) findViewById(R.id.timeView);
         String medTime = tvTime.getText().toString();
 
-
         if(medName.isEmpty()){
             /**
              * Dialog alerts you that the medicine name is empty.
@@ -222,17 +216,30 @@ public class AddMedicineActivity extends AppCompatActivity
                 c.set(Calendar.MINUTE, minute);
                 c.set(Calendar.SECOND, 0);
 
-                startAlarmOnce(c);
+                startAlarm(c);
 
                 setResult(1);
                 finish();
             }else if(repeat){
+                Calendar c = Calendar.getInstance();
+
+                /**
+                 * Saved variables from onDateSet and onTimeSet will be set to an alarm here.
+                 * This alarm will be first set to the day that is selected and in the for loop
+                 * the alarm will be set to the next six days in addition to the first.
+                 */
+                c.set(Calendar.DAY_OF_MONTH, day);
+                c.set(Calendar.YEAR, year);
+                c.set(Calendar.MONTH, month);
+                c.set(Calendar.HOUR_OF_DAY, hour);
+                c.set(Calendar.MINUTE, minute);
+                c.set(Calendar.SECOND, 0);
+
                 for(int i = 0; i <= 6; i++){
 
                     // ======== INCREMENT DAY BY ONE EVERY LOOP ======== //
                     String oldMedDate = tvDate.getText().toString();
                     SimpleDateFormat oldToNewDate = new SimpleDateFormat("d.M.yyyy");
-                    Calendar c = Calendar.getInstance();
                     try{
                         c.setTime(oldToNewDate.parse(oldMedDate));
                     }catch(ParseException e){
@@ -244,21 +251,10 @@ public class AddMedicineActivity extends AppCompatActivity
                     // ================================================= //
 
                     SavedMedicine.getInstance().saveMedicine(medName, medDesc, newMedDate, medTime);
+
+                    startAlarm(c);
                 }
 
-                /**
-                 * Saved variables from onDateSet and onTimeSet will be set to an alarm here.
-                 * This alarm will fire off continuously.
-                 */
-                Calendar c = Calendar.getInstance();
-                c.set(Calendar.YEAR, year);
-                c.set(Calendar.MONTH, month);
-                c.set(Calendar.DAY_OF_MONTH, day);
-                c.set(Calendar.HOUR_OF_DAY, hour);
-                c.set(Calendar.MINUTE, minute);
-                c.set(Calendar.SECOND, 0);
-
-                startAlarmRepeating(c);
                 setResult(2);
                 finish();
             }
@@ -266,40 +262,11 @@ public class AddMedicineActivity extends AppCompatActivity
     }
 
     /**
-     * When the user presses the back button, this method will call the onBackPressed()
-     * method from the superclass that returns the user back to the previous view.
-     * @param v used for finding something in the screen view (View)
-     */
-    public  void  onBackPressed(View v){
-        super.onBackPressed();
-        cancelAlarm();
-        setResult(0);
-        finish();
-    }
-
-    /**
-     *Starts repeating alarm
-     * @param c
-     * This method will call for the alarm manager and create a pending intent, that will be fire off
-     * when the time is right. This alarm will repeat itself after the first alarm on a eight hour interval.
-     * @param c takes in a date and a time when the alarm should fire (Calendar)
-     */
-    private void startAlarmRepeating(Calendar c){
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int)System.currentTimeMillis(), intent,0);
-
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),24 * 60 * 60 * 1000, pendingIntent);
-    }
-
-    /**
-     * Starts alarm
-     * @param c
      * This method will call for the alarm manager and create a pending intent, that will be fire off
      * when the time is right. This alarm will not repeat itself after the first alarm.
      * @param c takes in a date and a time when the alarm should fire (Calendar)
      */
-    private void startAlarmOnce(Calendar c){
+    private void startAlarm(Calendar c){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int)System.currentTimeMillis(), intent,0);
@@ -316,5 +283,17 @@ public class AddMedicineActivity extends AppCompatActivity
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent,0);
 
         alarmManager.cancel(pendingIntent);
+    }
+
+    /**
+     * When the user presses the back button, this method will call the onBackPressed()
+     * method from the superclass that returns the user back to the previous view.
+     * @param v used for finding something in the screen view (View)
+     */
+    public  void  onBackPressed(View v){
+        super.onBackPressed();
+        cancelAlarm();
+        setResult(0);
+        finish();
     }
 }
