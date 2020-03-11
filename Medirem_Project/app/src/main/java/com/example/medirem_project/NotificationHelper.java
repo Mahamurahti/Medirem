@@ -12,7 +12,8 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 
 /**
- * Joonatan kirjota
+ * NotificationHelper is used to create and manage notification channels. It also constructs notifications.
+ * NotificationHelper has ContextWrapper as its superclass.
  * @author Joonatan Pakkanen
  * @version 1.1 3/2020
  */
@@ -35,7 +36,7 @@ public class NotificationHelper extends ContextWrapper {
     }
 
     /**
-     *
+     * Creates notification channel and sets default settings for it.
      */
     public void createChannels(){
         NotificationChannel channel1 = new NotificationChannel(channel1ID, channel1Name, NotificationManager.IMPORTANCE_DEFAULT);
@@ -48,8 +49,8 @@ public class NotificationHelper extends ContextWrapper {
     }
 
     /**
-     *
-     * @return
+     * Returns mManager if you call getManager method.
+     * @return Returns mManager.
      */
     public NotificationManager getManager(){
         if(mManager == null){
@@ -59,10 +60,12 @@ public class NotificationHelper extends ContextWrapper {
     }
 
     /**
-     *
-     * @param title
-     * @param message
-     * @return
+     * Sets default settings for notification and creates intent for opening app through notification.
+     * @param title Title of the notifications, Declared in AlertReceiver.
+     * @param message Message of the notification, Declared in AlertReceiver.
+     * @return Returns ChannelID for notification, title of notification, message of notification and
+     * icon for notification to use. Also sets autocancel to true so notification gets destroyed after you click it,
+     * and sets pending intent for opening application after clicking.
      */
     public NotificationCompat.Builder getChannelNotification(String title, String message){
 
