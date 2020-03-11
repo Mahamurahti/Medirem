@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * MainActivity holds the calendar and the main functions of this app
  * @author Eric Keränen & Salla Mikkonen
- * @version 1.5 2/2020
+ * @version 1.7 2/2020
 */
 public class MainActivity extends AppCompatActivity {
 
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method is called when the user clicks on the add medicine button.
      * Starts the AddMedicineActivity where the user can add new medicine.
-     * @param v used for finding something in the screen view
+     * @param v used for finding something in the screen view (View)
      */
     public void addMedicine(View v){
         Intent intent = new Intent(MainActivity.this, AddMedicineActivity.class);
@@ -259,6 +259,11 @@ public class MainActivity extends AppCompatActivity {
         prefEditor.commit();
     }
 
+    /**
+     * This method is only used for testing purposes. This method will deleted every medicine in the
+     * singleton list and cancel all alarms. A clear all button.
+     * @param v used for finding something in the screen view (View)
+     */
     public void nuclearButton(View v){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Causing a nuclear apocalypse");
@@ -277,6 +282,8 @@ public class MainActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.e("LOG", "AlarmManager update was not canceled. " + e.toString());
                 }
+                RefreshList();
+                setAdapter(newMedList);
             }
         });
         builder.setNegativeButton("Hell naw", new DialogInterface.OnClickListener() {
