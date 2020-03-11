@@ -81,7 +81,7 @@ public class AddMedicineActivity extends AppCompatActivity
 
     /**
      * Radio buttons are used for selecting the repeat type, which are "Do not repeat" or "Repeat
-     * for a week" , depending on which is selected the variable repeat (boolean) is changed
+     * for a week", depending on which is selected the variable repeat (boolean) is changed
      * and when the add button is pressed the medicine will be saved in the way selected
      * @param v used for finding something in the screen view (View)
      */
@@ -106,7 +106,7 @@ public class AddMedicineActivity extends AppCompatActivity
 
     /**
      * This method saves the information that the user selects in the opened calendar.
-     * After picking a date it will be displayed in a text view.
+     * After picking a date it will be displayed in a text view and saved to some variables.
      *
      * @param view used for finding something in the screen view (View)
      * @param year is found from datePicker activity with Calendar.YEAR (int)
@@ -135,6 +135,7 @@ public class AddMedicineActivity extends AppCompatActivity
      * After picking the time it will be displayed in a text view. The displaying has
      * a small logic pool to add zeroes in front of numbers smaller than 10 (e.g. 8:1 -> 08:01).
      * Chosen time is transferred to startAlarm method as c parameter.
+     * Hour and minute will be saved to a few variables.
      * @param view used for finding something in the screen view (View)
      * @param hourOfDay is found from timePicker activity with Calendar.HOUR_OF_DAY (int)
      * @param minute is found from timePicker activity with Calendar.Minute (int)
@@ -177,7 +178,7 @@ public class AddMedicineActivity extends AppCompatActivity
 
         if(medName.isEmpty()){
             /**
-             * See "removeButton" method in medicine details activity to know how the alert dialog is built.
+             * Dialog alerts you that the medicine name is empty.
              */
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Please add a name");
@@ -192,7 +193,7 @@ public class AddMedicineActivity extends AppCompatActivity
             alert.show();
         }else if(medDate.isEmpty()){
             /**
-             * See "removeButton" method in medicine details activity to know how the alert dialog is built.
+             * Dialog alerts you that the medicine date is empty.
              */
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Please add a date");
@@ -210,6 +211,10 @@ public class AddMedicineActivity extends AppCompatActivity
                 SavedMedicine.getInstance().saveMedicine(medName, medDesc, medDate, medTime);
                 Calendar c = Calendar.getInstance();
 
+                /**
+                 * Saved variables from onDateSet and onTimeSet will be set to an alarm here.
+                 * This alarm will fire off only once.
+                 */
                 c.set(Calendar.YEAR, year);
                 c.set(Calendar.MONTH, month);
                 c.set(Calendar.DAY_OF_MONTH, day);
@@ -240,6 +245,11 @@ public class AddMedicineActivity extends AppCompatActivity
 
                     SavedMedicine.getInstance().saveMedicine(medName, medDesc, newMedDate, medTime);
                 }
+
+                /**
+                 * Saved variables from onDateSet and onTimeSet will be set to an alarm here.
+                 * This alarm will fire off continuously.
+                 */
                 Calendar c = Calendar.getInstance();
                 c.set(Calendar.YEAR, year);
                 c.set(Calendar.MONTH, month);
@@ -270,6 +280,9 @@ public class AddMedicineActivity extends AppCompatActivity
     /**
      *Starts repeating alarm
      * @param c
+     * This method will call for the alarm manager and create a pending intent, that will be fire off
+     * when the time is right. This alarm will repeat itself after the first alarm on a eight hour interval.
+     * @param c takes in a date and a time when the alarm should fire (Calendar)
      */
     private void startAlarmRepeating(Calendar c){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -282,6 +295,9 @@ public class AddMedicineActivity extends AppCompatActivity
     /**
      * Starts alarm
      * @param c
+     * This method will call for the alarm manager and create a pending intent, that will be fire off
+     * when the time is right. This alarm will not repeat itself after the first alarm.
+     * @param c takes in a date and a time when the alarm should fire (Calendar)
      */
     private void startAlarmOnce(Calendar c){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -292,7 +308,7 @@ public class AddMedicineActivity extends AppCompatActivity
     }
 
     /**
-     * Cancels alarm
+     * This method cancel the pending intent and therefore cancels the alarm.
      */
     private void cancelAlarm(){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);

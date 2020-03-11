@@ -6,6 +6,11 @@ import android.content.Intent;
 
 import androidx.core.app.NotificationCompat;
 
+/**
+ * Joonatan kirjota
+ * @author Joonatan Pakkanen
+ * @version 1.1 3/2020
+ */
 public class AlertReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent){
         NotificationHelper notificationHelper = new NotificationHelper(context);

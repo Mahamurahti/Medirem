@@ -36,7 +36,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     // Git Version
-    // TODO: GET NOTIFICATIONS WORKING (POP-UP AND MAYBE SOUND)
     public  static  final String EXTRA_MAIN = "Main Activity Value";
 
     private ListView listOfMed;
@@ -148,6 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This method fetches the result from the AddMedicineActivity and MedicineDetailsActivity.
+     * After the user has returned from an activity a toast will display what updates were made.
      * @param requestCode the code that is used to request the activity (int)
      * @param resultCode the code that is given in the setResult in the other activity (int)
      * @param data the data which is passed to the mainActivity from the other activity (Intent)
