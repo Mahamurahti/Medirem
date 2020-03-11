@@ -11,12 +11,21 @@ import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 
+/**
+ * Joonatan kirjota
+ * @author Joonatan Pakkanen
+ * @version 1.1 3/2020
+ */
 public class NotificationHelper extends ContextWrapper {
     public static final String channel1ID = "channel1ID";
     public static final String channel1Name = "Channel 1";
 
     private NotificationManager mManager;
 
+    /**
+     *
+     * @param base
+     */
     public NotificationHelper(Context base){
         super(base);
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -24,6 +33,10 @@ public class NotificationHelper extends ContextWrapper {
         }
         createChannels();
     }
+
+    /**
+     *
+     */
     public void createChannels(){
         NotificationChannel channel1 = new NotificationChannel(channel1ID, channel1Name, NotificationManager.IMPORTANCE_DEFAULT);
         channel1.enableLights(true);
@@ -33,6 +46,11 @@ public class NotificationHelper extends ContextWrapper {
 
         getManager().createNotificationChannel(channel1);
     }
+
+    /**
+     *
+     * @return
+     */
     public NotificationManager getManager(){
         if(mManager == null){
             mManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -40,6 +58,12 @@ public class NotificationHelper extends ContextWrapper {
         return mManager;
     }
 
+    /**
+     *
+     * @param title
+     * @param message
+     * @return
+     */
     public NotificationCompat.Builder getChannelNotification(String title, String message){
 
         Intent resultIntent = new Intent(this, MainActivity.class);

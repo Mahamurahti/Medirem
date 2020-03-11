@@ -71,7 +71,9 @@ public class MedicineDetailsActivity extends AppCompatActivity {
     public void takeMedicineButton(View v){
 
         /**
-         * See "removeButton" method to know how the alert dialog is built.
+         * After taking medicine, the medicine will be saved to taken state, which cannot be reverted.
+         * Additionally the take button will disappear and the time when the user took the medicine
+         * will be displayed in the details to indicate if the user took the medicine on time.
          */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Taking medicine");
