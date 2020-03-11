@@ -268,7 +268,7 @@ public class AddMedicineActivity extends AppCompatActivity
     }
 
     /**
-     *
+     *Starts repeating alarm
      * @param c
      */
     private void startAlarmRepeating(Calendar c){
@@ -279,6 +279,10 @@ public class AddMedicineActivity extends AppCompatActivity
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),24 * 60 * 60 * 1000, pendingIntent);
     }
 
+    /**
+     * Starts alarm
+     * @param c
+     */
     private void startAlarmOnce(Calendar c){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
