@@ -35,7 +35,7 @@ import java.util.Date;
 /**
  * Add medicine activity adds custom medicine to the list which the user has to type in.
  * @author Eric Keränen & Salla Mikkonen & Joonatan Pakkanen
- * @version 1.5 2/2020
+ * @version 1.7 2/2020
  */
 public class AddMedicineActivity extends AppCompatActivity
         implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -285,7 +285,7 @@ public class AddMedicineActivity extends AppCompatActivity
     private void startAlarmRepeating(Calendar c){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 2, intent,0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int)System.currentTimeMillis(), intent,0);
 
         alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(),24 * 60 * 60 * 1000, pendingIntent);
     }
@@ -298,7 +298,7 @@ public class AddMedicineActivity extends AppCompatActivity
     private void startAlarmOnce(Calendar c){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlertReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent,0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, (int)System.currentTimeMillis(), intent,0);
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
