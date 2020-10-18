@@ -1,10 +1,25 @@
 # Medirem Android application
-This source code is the result of a medicine reminder app for android in Metropolia UAS.
-See "app/src/main/java/com/example/medirem_project/" for all the different codes and classes used for the app.
+An app for Android that can store medicine and remind the user to take the medicine in the time the user has set for the medicine. The medicine is stored in a calendar and the user has to specify what medicine is stored on which day. 
 
-Plan was to make the application be able to save medicine written by the user and set alarms when to take certain medicine with descriptions.
+## Features
 
-The app is working with the ability to add custom medicine with names, descriptions, dates and times when to take them. The notifies the user at the correct time and you can tell the app that you have taken the medicine.
+- Store medicine in a calendar
+
+- The app will remind the user with a notifications to take the app
+
+- The user can mark the medicine as taken and the app will remember the time that the medicine has been taken
+
+- The user can save one medicine at a time or save a medicine for seven days straight, useful for medical regimen
+
+- Medicine are remembered by the app, even if it's closed
+
+## Technologies
+
+- Java
+
+- Android Studio
+
+- Photoshop
 
 Code contributors:
 * Eric Keränen
